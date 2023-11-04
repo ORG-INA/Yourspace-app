@@ -84,7 +84,7 @@ export default function PromoSection() {
                 href="#"
                 className="inline-block rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-center font-medium text-white hover:bg-indigo-700"
               >
-                Shop Collection
+                Ir al evento
               </a>
             </div>
           </div>
