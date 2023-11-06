@@ -15,7 +15,7 @@ export const createCarro = (carroData) => {
 };
 
 export const updateCarro = (carroData) => {
-  return fetch(CARROS_API + carroData.id, {
+  return fetch(CARROS_API + carroData.id + "/", {
     method: "PUT",
     body: JSON.stringify(carroData),
     headers: {

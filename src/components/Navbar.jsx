@@ -22,15 +22,16 @@ import {
 } from "@heroicons/react/24/outline";
 import ShoppingCart from "./ShoppingCart";
 import { Link, useLocation } from "react-router-dom";
+import useCategoryService from "../customHooks/useCategoryService";
 
 const navigation = {
   categories: [
     {
-      id: "women",
-      name: "Women",
+      id: "categorias",
+      name: "Categorias",
       featured: [
         {
-          name: "New Arrivals",
+          name: "Todos los productos",
           href: "#",
           imageSrc:
             "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
@@ -38,7 +39,7 @@ const navigation = {
             "Models sitting back to back, wearing Basic Tee in black and bone.",
         },
         {
-          name: "Basic Tees",
+          name: "Productos destacados",
           href: "#",
           imageSrc:
             "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
@@ -87,71 +88,42 @@ const navigation = {
         },
       ],
     },
-    {
-      id: "men",
-      name: "Men",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt:
-            "Drawstring top with elastic loop closure and textured interior padding.",
-        },
-        {
-          name: "Artwork Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-          ],
-        },
-      ],
-    },
   ],
   pages: [
-    { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
+    { name: "Sobre nosotros", href: "#" },
+    { name: "Contacto", href: "#" },
   ],
 };
+
+function transformToDesiredFormat(categories) {
+  const result = [];
+
+  // Agrupar las categorías por categoría padre
+  const categoriesByParent = categories.reduce((map, category) => {
+    const parentId = category.id_categoria_padre || "root";
+    map[parentId] = map[parentId] || { id: parentId, items: [] };
+    map[parentId].items.push({
+      name: category.nombre_categoria,
+      href: `#${category.nombre_categoria.toLowerCase().replace(/ /g, "-")}`,
+    });
+    return map;
+  }, {});
+
+  // Crear objetos para cada categoría padre
+  for (const key in categoriesByParent) {
+    if (key !== "root") {
+      result.push({
+        id: categoriesByParent[key].id,
+        name: categories.find(
+          (category) => category.id_categoria === parseInt(key)
+        ).nombre_categoria,
+        items: categoriesByParent[key].items,
+      });
+    }
+  }
+
+  return result;
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -160,15 +132,25 @@ function classNames(...classes) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [sections, setSections] = useState([]);
+  const { loading, categories: bdcategories } = useCategoryService();
+
+  console.log("Categorias", loading ? "" : bdcategories);
 
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    const transformedObject = transformToDesiredFormat(bdcategories);
+    console.log({ transformedObject });
+    setSections(transformedObject.sections);
+  }, [bdcategories]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   return (
-    <div className="bg-white relative z-40">
+    <div className="bg-white z-30 fixed right-0 left-0 top-0">
       <ShoppingCart props={{ openCart, setOpenCart }} />
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
@@ -264,32 +246,34 @@ export default function Navbar() {
                             </div>
                           ))}
                         </div>
-                        {category.sections.map((section) => (
-                          <div key={section.name}>
-                            <p
-                              id={`${category.id}-${section.id}-heading-mobile`}
-                              className="font-medium text-gray-900"
-                            >
-                              {section.name}
-                            </p>
-                            <ul
-                              role="list"
-                              aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                              className="mt-6 flex flex-col space-y-6"
-                            >
-                              {section.items.map((item) => (
-                                <li key={item.name} className="flow-root">
-                                  <a
-                                    href={item.href}
-                                    className="-m-2 block p-2 text-gray-500"
-                                  >
-                                    {item.name}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
+                        {sections
+                          ? sections.map((section) => (
+                              <div key={section.name}>
+                                <p
+                                  id={`${category.id}-${section.id}-heading-mobile`}
+                                  className="font-medium text-gray-900"
+                                >
+                                  {section.name}
+                                </p>
+                                <ul
+                                  role="list"
+                                  aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                                  className="mt-6 flex flex-col space-y-6"
+                                >
+                                  {section.items.map((item) => (
+                                    <li key={item.name} className="flow-root">
+                                      <a
+                                        href={item.href}
+                                        className="-m-2 block p-2 text-gray-500"
+                                      >
+                                        {item.name}
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))
+                          : ""}
                       </Tab.Panel>
                     ))}
                   </Tab.Panels>
@@ -354,8 +338,8 @@ export default function Navbar() {
                 <Link to="/">
                   <span className="sr-only">Your Company</span>
                   <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    className="h-12 w-auto rounded-full"
+                    src="/public/yourspace-logo.png"
                     alt=""
                   />
                 </Link>
@@ -433,35 +417,37 @@ export default function Navbar() {
                                       ))}
                                     </div>
                                     <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
-                                      {category.sections.map((section) => (
-                                        <div key={section.name}>
-                                          <p
-                                            id={`${section.name}-heading`}
-                                            className="font-medium text-gray-900"
-                                          >
-                                            {section.name}
-                                          </p>
-                                          <ul
-                                            role="list"
-                                            aria-labelledby={`${section.name}-heading`}
-                                            className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                          >
-                                            {section.items.map((item) => (
-                                              <li
-                                                key={item.name}
-                                                className="flex"
+                                      {sections
+                                        ? sections.map((section) => (
+                                            <div key={section.id}>
+                                              <p
+                                                id={`${section.name}-heading`}
+                                                className="font-medium text-gray-900"
                                               >
-                                                <a
-                                                  href={item.href}
-                                                  className="hover:text-gray-800"
-                                                >
-                                                  {item.name}
-                                                </a>
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        </div>
-                                      ))}
+                                                {section.name}
+                                              </p>
+                                              <ul
+                                                role="list"
+                                                aria-labelledby={`${section.name}-heading`}
+                                                className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                              >
+                                                {section.items.map((item) => (
+                                                  <li
+                                                    key={item.name}
+                                                    className="flex"
+                                                  >
+                                                    <a
+                                                      href={item.href}
+                                                      className="hover:text-gray-800"
+                                                    >
+                                                      {item.name}
+                                                    </a>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            </div>
+                                          ))
+                                        : ""}
                                     </div>
                                   </div>
                                 </div>
@@ -502,21 +488,6 @@ export default function Navbar() {
                   </a>
                 </div>
 
-                <div className="hidden lg:ml-8 lg:flex">
-                  <a
-                    href="#"
-                    className="flex items-center text-gray-700 hover:text-gray-800"
-                  >
-                    <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div>
-
                 {/* Search */}
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
@@ -533,7 +504,7 @@ export default function Navbar() {
                   className="ml-4 flow-root lg:ml-6"
                   onClick={() => setOpenCart(true)}
                 >
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <span className="group -m-2 flex items-center p-2 cursor-pointer">
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
@@ -542,7 +513,7 @@ export default function Navbar() {
                       0
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>

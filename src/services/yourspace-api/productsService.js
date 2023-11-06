@@ -5,6 +5,10 @@ export const getProducts = () => {
   return fetch(PRODUCTOS_API).then((response) => response.json());
 };
 
+export const getProductById = (id) => {
+  return fetch(PRODUCTOS_API + id).then((response) => response.json());
+};
+
 export const createProduct = (productData) => {
   return fetchWithCredentials(PRODUCTOS_API, {
     method: "POST",
@@ -16,17 +20,17 @@ export const createProduct = (productData) => {
 };
 
 export const updateProduct = (productData) => {
-  return fetchWithCredentials(PRODUCTOS_API + productData.id, {
-    method: "PUT",
-    body: JSON.stringify(productData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return fetchWithCredentials(
+    PRODUCTOS_API + productData.get("id_producto") + "/",
+    {
+      method: "PUT",
+      body: productData,
+    }
+  );
 };
 
 export const deleteProduct = (id) => {
-  return fetchWithCredentials(PRODUCTOS_API + id, {
+  return fetchWithCredentials(PRODUCTOS_API + id + "/", {
     method: "DELETE",
   });
 };
@@ -34,20 +38,13 @@ export const deleteProduct = (id) => {
 export const createProductInventory = (productInventoryData) => {
   return fetchWithCredentials(NUEVO_PRODUCTO_INVENTARIO_API, {
     method: "POST",
-    body: JSON.stringify(productInventoryData),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    body: productInventoryData,
   });
 };
-// {
-//   "nombre": "Producto de prueba",
-//   "descripcion": "Esta es una descripción de prueba.",
-//   "precio": 19.99,
-//   "descuento": 5.00,
-//   "marca": 1,
-//   "categorias": [1],
-//   "temporadas_evento": [],
-//   "cantidad": 100,
-//   "fecha": "2023-10-16T12:00:00"
-// }
+
+export const updateProductInventory = (productInventoryData) => {
+  return fetchWithCredentials(NUEVO_PRODUCTO_INVENTARIO_API, {
+    method: "PUT",
+    body: productInventoryData,
+  });
+};

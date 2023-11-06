@@ -6,7 +6,9 @@ const PublicContainer = () => {
   return (
     <NavbarProvider>
       <Navbar />
-      <Outlet />
+      <div className="mt-16">
+        <Outlet />
+      </div>
     </NavbarProvider>
   );
 };

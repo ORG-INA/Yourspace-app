@@ -79,32 +79,7 @@ function AdminCategoryTable() {
             </tr>
           </thead>
           <tbody>
-            {!loading
-              ? categories.map((category) => (
-                  <tr
-                    key={category.id_categoria}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                  >
-                    <td className="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                      {category.nombre_categoria}
-                    </td>
-                    <td
-                      scope="row"
-                      className="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                    >
-                      {getCategoriaNameById(category.id_categoria_padre)}
-                    </td>
-                    <td className="px-4 py-4 text-right">
-                      <p
-                        onClick={onDeleteCategory(category.id_categoria)}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
-                      >
-                        Eliminar
-                      </p>
-                    </td>
-                  </tr>
-                ))
-              : null}
+            {/* FILA FORMULARIO PARA INGRESAR NUEVA CATEOGIRA */}
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <td className="w-52 p-4">
                 <input
@@ -147,6 +122,34 @@ function AdminCategoryTable() {
                 </p>
               </td>
             </tr>
+
+            {/* FILAS DE CATEGORIAS */}
+            {!loading
+              ? categories.map((category) => (
+                  <tr
+                    key={category.id_categoria}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  >
+                    <td className="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                      {category.nombre_categoria}
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-4 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                    >
+                      {getCategoriaNameById(category.id_categoria_padre)}
+                    </td>
+                    <td className="px-4 py-4 text-right">
+                      <p
+                        onClick={onDeleteCategory(category.id_categoria)}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                      >
+                        Eliminar
+                      </p>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>

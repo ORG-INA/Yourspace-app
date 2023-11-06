@@ -5,9 +5,11 @@ import {
   updateProduct,
   deleteProduct,
   createProductInventory,
+  getProductById,
 } from "../services/yourspace-api/productsService";
+import { updateInventario } from "../services/yourspace-api/inventoryService";
 
-function useProductService() {
+function useProductService(id = null) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -15,6 +17,12 @@ function useProductService() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if (id) {
+          const data = await getProductById(id);
+          setProducts(data);
+          setLoading(false);
+          return;
+        }
         const data = await getProducts();
         setProducts(data);
         setLoading(false);
@@ -25,7 +33,7 @@ function useProductService() {
     };
 
     fetchData();
-  }, []);
+  }, [isUpdate]);
 
   const addProduct = async (productData) => {
     try {
@@ -40,7 +48,7 @@ function useProductService() {
     setIsUpdate(!isUpdate);
   };
 
-  const updateProductData = async (productData) => {
+  const editProduct = async (productData) => {
     try {
       const data = await updateProduct(productData);
       return data;
@@ -61,8 +69,21 @@ function useProductService() {
   const addProductDirectToInventory = async (productData) => {
     try {
       const data = await createProductInventory(productData);
-      reloadProducts();
       return data;
+    } catch (error) {
+      console.error("Error creating product:", error);
+    }
+  };
+
+  const updateProductAndInventory = async (productData) => {
+    try {
+      await updateProduct(objectToFormData(productData));
+      await updateInventario({
+        id_inventario: productData.id_inventario,
+        cantidad_disponible: productData.cantidad,
+      });
+      reloadProducts();
+      alert("Producto actualizado correctamente");
     } catch (error) {
       console.error("Error creating product:", error);
     }
@@ -73,10 +94,21 @@ function useProductService() {
     loading,
     addProduct,
     reloadProducts,
-    updateProductData,
+    editProduct,
     removeProduct,
     addProductDirectToInventory,
+    updateProductAndInventory,
   };
+}
+
+function objectToFormData(obj) {
+  const formData = new FormData();
+
+  for (const key in obj) {
+    formData.append(key, obj[key]);
+  }
+
+  return formData;
 }
 
 export default useProductService;

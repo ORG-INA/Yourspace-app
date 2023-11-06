@@ -16,13 +16,16 @@ export const createEventSeason = (EventSeasonData) => {
 };
 
 export const updateEventSeason = (EventSeasonData) => {
-  return fetchWithCredentials(TEMPORADAS_EVENTO_API + EventSeasonData.id, {
-    method: "PUT",
-    body: JSON.stringify(EventSeasonData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return fetchWithCredentials(
+    TEMPORADAS_EVENTO_API + EventSeasonData.id + "/",
+    {
+      method: "PUT",
+      body: JSON.stringify(EventSeasonData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
 export const deleteEventSeason = (id) => {

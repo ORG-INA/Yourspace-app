@@ -5,15 +5,15 @@ export default function PromoSection() {
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
           <div className="sm:max-w-lg">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Welcome Your Space
+              <p>Bienvenido a</p>
+              <p>Your Space</p>
             </h1>
             <p className="mt-4 text-xl text-gray-500">
-              This year, our new summer collection will shelter you from the
-              harsh elements of a world that doesnt care if you live or die.
+              ¡Aprovecha las oportunidades de ésta temporada de ofertas!.
             </p>
           </div>
           <div>
-            <div className="mt-10">
+            <div className="mt-5">
               {/* Decorative image grid */}
               <div
                 aria-hidden="true"

@@ -25,7 +25,10 @@ export default function Login() {
           </div>
         </div>
         <div className="w-1/2 shadow-2xl">
-          <h2 className="hidden object-cover w-full h-screen md:block">Hola</h2>
+          <img
+            className="hidden object-cover w-full h-screen md:block contrast-75"
+            src="/public/yourspace-login.jpg"
+          />
         </div>
       </div>
     </>

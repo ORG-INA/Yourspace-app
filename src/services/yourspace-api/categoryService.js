@@ -16,13 +16,16 @@ export const createCategory = (CategoryData) => {
 };
 
 export const updateCategory = (CategoryData) => {
-  return fetchWithCredentials(CATEGORIAS_API + CategoryData.id, {
-    method: "PUT",
-    body: JSON.stringify(CategoryData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return fetchWithCredentials(
+    CATEGORIAS_API + CategoryData.id_categoria + "/",
+    {
+      method: "PUT",
+      body: JSON.stringify(CategoryData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
 export const deleteCategory = (id) => {

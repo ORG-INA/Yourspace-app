@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
-  getSeasons,
-  createSeason,
-  updateSeason,
-  deleteSeason,
+  getEventSeasons,
+  createEventSeason,
+  updateEventSeason,
+  deleteEventSeason,
 } from "../services/yourspace-api/eventSeasonService";
 
 function useEventSeasonService() {
@@ -13,7 +13,7 @@ function useEventSeasonService() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getSeasons();
+        const data = await getEventSeasons();
         setSeasons(data);
         setLoading(false);
       } catch (error) {
@@ -27,7 +27,7 @@ function useEventSeasonService() {
 
   const addSeason = async (seasonData) => {
     try {
-      const data = await createSeason(seasonData);
+      const data = await createEventSeason(seasonData);
       return data;
     } catch (error) {
       console.error("Error creating season:", error);
@@ -36,7 +36,7 @@ function useEventSeasonService() {
 
   const updateSeasonData = async (seasonData) => {
     try {
-      const data = await updateSeason(seasonData);
+      const data = await updateEventSeason(seasonData);
       return data;
     } catch (error) {
       console.error("Error updating season:", error);
@@ -45,7 +45,7 @@ function useEventSeasonService() {
 
   const removeSeason = async (seasonId) => {
     try {
-      const data = await deleteSeason(seasonId);
+      const data = await deleteEventSeason(seasonId);
       return data;
     } catch (error) {
       console.error("Error deleting season:", error);

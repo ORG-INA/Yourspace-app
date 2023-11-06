@@ -1,39 +1,86 @@
-import { useEffect } from "react";
+/* eslint-disable no-prototype-builtins */
+import { useEffect, useState } from "react";
 import useProductService from "../../customHooks/useProductService";
+import { Modal } from "../Modal";
+import ProductInventoryForm from "./ProductInventoryForm";
+import {
+  getProductById,
+  updateProductInventory,
+} from "../../services/yourspace-api/productsService";
+import { getInventarioById } from "../../services/yourspace-api/inventoryService";
 
-const products = [
-  {
-    id: 1,
-    name: "Apple MacBook Pro 17",
-    color: "Silver",
-    category: "Laptop",
-    price: 2999,
-  },
-  {
-    id: 2,
-    name: "Microsoft Surface Pro",
-    color: "White",
-    category: "Laptop PC",
-    price: 1999,
-  },
-  {
-    id: 3,
-    name: "Magic Mouse 2",
-    color: "Black",
-    category: "Accessories",
-    price: 99,
-  },
-  // Agrega más objetos según tus datos
-];
+const filteringDataForm = (data) => {
+  if (!data.hasOwnProperty("categorias")) {
+    data.categorias = [];
+  } else {
+    data.categorias = data.categorias.split(",");
+  }
+  if (!data.hasOwnProperty("temporadas_evento")) {
+    data.temporadas_evento = [];
+  } else {
+    data.temporadas_evento = data.temporadas_evento.split(",");
+  }
+  return data;
+};
 
 function AdminProductsTable() {
-  products.sort((a, b) => a.name.localeCompare(b.name));
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
 
-  const { products: allproducts, loading } = useProductService();
+  const {
+    products: allproducts,
+    loading,
+    removeProduct,
+    reloadProducts,
+  } = useProductService();
 
   useEffect(() => {
     console.log(!loading ? allproducts : "No hay productos");
   });
+
+  const onModalOpen = (id) => async () => {
+    setShowModal(true);
+    const producto = await getProductById(id);
+    const inventario = await getInventarioById(id);
+    console.log(inventario);
+    console.log(producto);
+    setSelectedProduct({
+      ...producto,
+      id_inventario: inventario.id_inventario,
+      cantidad: inventario.cantidad_disponible,
+    });
+  };
+
+  const onModalClose = (ev) => {
+    ev.preventDefault();
+    setShowModal(false);
+  };
+
+  const onDeleteProduct = (ev) => {
+    ev.preventDefault();
+    removeProduct(selectedProduct.id_producto);
+    reloadProducts();
+    setShowModal(false);
+  };
+
+  const onSubmitUpdateProduct = async (ev) => {
+    ev.preventDefault();
+    console.log(ev.target);
+    const formData = new FormData(ev.target);
+    formData.append("id_producto", selectedProduct.id_producto);
+    formData.append("id_inventario", selectedProduct.id_inventario);
+    console.log(formData);
+    // console.log(filteringDataForm(formData));
+    try {
+      const data = await updateProductInventory(filteringDataForm(formData));
+      reloadProducts();
+      setShowModal(false);
+      console.log(data);
+    } catch (error) {
+      alert("Error al actualizar el producto");
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -88,7 +135,11 @@ function AdminProductsTable() {
             </thead>
             <tbody>
               {loading ? (
-                <p>Cargando...</p>
+                <tr>
+                  <td>
+                    <p>Cargando...</p>
+                  </td>
+                </tr>
               ) : (
                 allproducts.map((product) => (
                   <tr
@@ -108,6 +159,7 @@ function AdminProductsTable() {
                       <a
                         href="#"
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        onClick={onModalOpen(product.id_producto)}
                       >
                         Editar
                       </a>
@@ -119,6 +171,36 @@ function AdminProductsTable() {
           </table>
         </div>
       </div>
+      <Modal show={showModal}>
+        <ProductInventoryForm
+          data={selectedProduct}
+          onExternalSubmitForm={onSubmitUpdateProduct}
+        >
+          <div className="relative">
+            <button
+              // onClick={onUpdateProduct}
+              type="submit"
+              className="ml-4 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            >
+              Actualizar
+            </button>
+            <button
+              onClick={onDeleteProduct}
+              type="None"
+              className="ml-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            >
+              Eliminar producto
+            </button>
+            <button
+              onClick={onModalClose}
+              type="None"
+              className="absolute right-0 ml-4 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+            >
+              Cancelar y volver
+            </button>
+          </div>
+        </ProductInventoryForm>
+      </Modal>
     </>
   );
 }
