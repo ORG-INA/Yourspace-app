@@ -8,13 +8,13 @@ import { fetchWithCredentials } from "./utils";
 
 export const login = (loginData) => {
   console.log("loginData", loginData);
-  return fetchWithCredentials(LOGIN_API, {
+  return fetch(LOGIN_API, {
     method: "POST",
     body: JSON.stringify(loginData),
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  }).then((response) => response.json());
 };
 
 export const register = (registerData) => {

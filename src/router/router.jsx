@@ -14,18 +14,12 @@ import PublicContainer from "../containers/PublicContainer";
 import AuthContainer from "../containers/AuthContainer";
 import AdminContainer from "../containers/AdminContainer";
 import ManageUsers from "../pages/admin-pages/ManageUsers";
-import { login } from "../services/yourspace-api/authService";
 import ManageCategories from "../pages/admin-pages/ManageCategories";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicContainer />,
-    loader: async () =>
-      login({
-        email: "enri@email.com",
-        password: "enri",
-      }),
     errorElement: <ErrorPage />,
     children: [
       {

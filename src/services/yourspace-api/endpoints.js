@@ -1,4 +1,7 @@
-export const API_BASE_URL = "http://44.207.70.246/";
+export const API_BASE_URL =
+  location.origin == "http://localhost:8000"
+    ? "http://44.207.70.246/"
+    : "http://localhost:8000/";
 export const ADMIN_API = API_BASE_URL + "admin/";
 
 export const BASE_API = API_BASE_URL + "api/";

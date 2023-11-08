@@ -1,23 +1,26 @@
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useLogin from "../customHooks/useLoginService";
 
 function LoginForm() {
   const { loading, error, loginUser } = useLogin();
-  const handleSubmit = (e) => {
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    console.log(data);
-    console.log(error);
-    console.log(loading);
-    const response = loginUser(data);
-    if (error) {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      console.log(data);
+      console.log(error);
+      console.log(loading);
+      const response = await loginUser(data);
+      if (response) {
+        console.log("Usuario logueado correctamente");
+        alert("Usuario logueado correctamente");
+        navigate("/");
+      }
+    } catch (error) {
       console.log("Usuario o contraseña incorrectos");
       alert("Usuario o contraseña incorrectos");
-    }
-    if (response) {
-      console.log("Usuario logueado correctamente");
-      alert("Usuario logueado correctamente");
-      redirect("/");
     }
   };
   return (
