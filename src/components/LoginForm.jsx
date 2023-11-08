@@ -13,10 +13,13 @@ function LoginForm() {
       console.log(error);
       console.log(loading);
       const response = await loginUser(data);
-      if (response) {
+      if (response.refresh && response.access) {
         console.log("Usuario logueado correctamente");
         alert("Usuario logueado correctamente");
         navigate("/");
+      } else {
+        console.log("Usuario o contraseña incorrectos");
+        alert("Usuario o contraseña incorrectos");
       }
     } catch (error) {
       console.log("Usuario o contraseña incorrectos");
