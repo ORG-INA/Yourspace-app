@@ -1,9 +1,37 @@
+import { useRef } from "react";
+import useRegister from "../customHooks/useRegisterService";
+import { redirect } from "react-router-dom";
+
 function RegisterForm() {
+  const { error, loading, registerUser } = useRegister();
+  const inputRepeatPassword = useRef(null);
+  const onSubmitRegister = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    if (data.password !== inputRepeatPassword.current.value) {
+      console.log("Las contraseñas no coinciden");
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+    console.log(data);
+    console.log(error);
+    console.log(loading);
+    const response = registerUser(data);
+    if (error) {
+      console.log("Error al registrar el usuario");
+      alert("Error al registrar el usuario");
+      return;
+    }
+    if (response) {
+      console.log("Usuario registrado correctamente");
+      alert("Usuario registrado correctamente");
+      redirect("/login");
+    }
+  };
   return (
     <>
-      <form className="bg-white">
-        <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
-        <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
+      <form className="bg-white mt-5" onSubmit={onSubmitRegister}>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -20,9 +48,10 @@ function RegisterForm() {
           <input
             className="pl-2 outline-none border-none"
             type="text"
-            name=""
+            name="name"
             id=""
-            placeholder="Full name"
+            placeholder="Nombre"
+            required
           />
         </div>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -43,9 +72,10 @@ function RegisterForm() {
           <input
             className="pl-2 outline-none border-none"
             type="text"
-            name=""
+            name="last_name"
             id=""
-            placeholder="Username"
+            placeholder="Apellido"
+            required
           />
         </div>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -65,10 +95,33 @@ function RegisterForm() {
           </svg>
           <input
             className="pl-2 outline-none border-none"
-            type="text"
-            name=""
+            type="email"
+            name="email"
             id=""
             placeholder="Email Address"
+            required
+          />
+        </div>
+        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 text-gray-400"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <input
+            className="pl-2 outline-none border-none"
+            type="password"
+            name="password"
+            id=""
+            placeholder="Contraseña"
+            required
           />
         </div>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
@@ -86,21 +139,18 @@ function RegisterForm() {
           </svg>
           <input
             className="pl-2 outline-none border-none"
-            type="text"
-            name=""
-            id=""
-            placeholder="Password"
+            type="password"
+            ref={inputRepeatPassword}
+            required
+            placeholder="Repetir Contraseña"
           />
         </div>
         <button
           type="submit"
-          className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+          className="block w-full bg-black mt-10 py-2  text-white font-semibold"
         >
-          Login
+          Registrarse
         </button>
-        <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">
-          Forgot Password ?
-        </span>
       </form>
     </>
   );

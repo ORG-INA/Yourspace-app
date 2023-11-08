@@ -1,7 +1,28 @@
+import { redirect } from "react-router-dom";
+import useLogin from "../customHooks/useLoginService";
+
 function LoginForm() {
+  const { loading, error, loginUser } = useLogin();
+  const handleSubmit = (e) => {
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    console.log(error);
+    console.log(loading);
+    const response = loginUser(data);
+    if (error) {
+      console.log("Usuario o contraseña incorrectos");
+      alert("Usuario o contraseña incorrectos");
+    }
+    if (response) {
+      console.log("Usuario logueado correctamente");
+      alert("Usuario logueado correctamente");
+      redirect("/");
+    }
+  };
   return (
     <>
-      <form className="flex flex-col pt-3 md:pt-8">
+      <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit}>
         <div className="flex flex-col pt-4">
           <div className="flex relative ">
             <span className=" inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -16,10 +37,11 @@ function LoginForm() {
               </svg>
             </span>
             <input
+              name="email"
               type="text"
               id="design-login-email"
               className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              placeholder="Email"
+              placeholder="Correo electrónico"
             />
           </div>
         </div>
@@ -38,9 +60,10 @@ function LoginForm() {
             </span>
             <input
               type="password"
+              name="password"
               id="design-login-password"
               className=" flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              placeholder="Password"
+              placeholder="Contraseña"
             />
           </div>
         </div>
@@ -48,7 +71,7 @@ function LoginForm() {
           type="submit"
           className="w-full px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-black shadow-md hover:text-black hover:bg-white focus:outline-none focus:ring-2"
         >
-          <span className="w-full">Submit</span>
+          <span className="w-full">Iniciar sesión</span>
         </button>
       </form>
     </>

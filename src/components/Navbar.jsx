@@ -24,7 +24,7 @@ import ShoppingCart from "./ShoppingCart";
 import { Link, useLocation } from "react-router-dom";
 import useCategoryService from "../customHooks/useCategoryService";
 
-const navigation = {
+const navigationMockup = {
   categories: [
     {
       id: "categorias",
@@ -132,18 +132,27 @@ function classNames(...classes) {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
-  const [sections, setSections] = useState([]);
-  const { loading, categories: bdcategories } = useCategoryService();
-
-  console.log("Categorias", loading ? "" : bdcategories);
+  const [navigation, setNavigation] = useState(navigationMockup);
+  const { loadingCategories, categories: bdcategories } = useCategoryService();
 
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const transformedObject = transformToDesiredFormat(bdcategories);
-    console.log({ transformedObject });
-    setSections(transformedObject.sections);
-  }, [bdcategories]);
+    if (!loadingCategories && bdcategories) {
+      const transformedObject = transformToDesiredFormat(bdcategories);
+      console.log({ transformedObject, navigation });
+      setNavigation((nav) => ({
+        ...nav,
+        categories: [
+          {
+            ...nav.categories[0],
+            sections: transformedObject,
+          },
+          // Agrega aquí otras categorías si es necesario
+        ],
+      }));
+    }
+  }, [loadingCategories, bdcategories]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -246,8 +255,8 @@ export default function Navbar() {
                             </div>
                           ))}
                         </div>
-                        {sections
-                          ? sections.map((section) => (
+                        {category.sections
+                          ? category.sections.map((section) => (
                               <div key={section.name}>
                                 <p
                                   id={`${category.id}-${section.id}-heading-mobile`}
@@ -339,7 +348,7 @@ export default function Navbar() {
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-12 w-auto rounded-full"
-                    src="/public/yourspace-logo.png"
+                    src="/yourspace-logo.png"
                     alt=""
                   />
                 </Link>
@@ -417,8 +426,8 @@ export default function Navbar() {
                                       ))}
                                     </div>
                                     <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
-                                      {sections
-                                        ? sections.map((section) => (
+                                      {category.sections
+                                        ? category.sections.map((section) => (
                                             <div key={section.id}>
                                               <p
                                                 id={`${section.name}-heading`}
@@ -473,19 +482,19 @@ export default function Navbar() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="/login"
+                  <Link
+                    to="/login"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     Iniciar sesión
-                  </a>
+                  </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a
-                    href="/register"
+                  <Link
+                    to="/register"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     Registrarse
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Search */}

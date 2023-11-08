@@ -12,14 +12,14 @@ export default function Login() {
             </Link>
           </div>
           <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
-            <p className="text-3xl text-center">Welcome.</p>
+            <p className="text-3xl text-center">Bienvenido.</p>
             <LoginForm />
             <div className="pt-12 pb-12 text-center">
               <p>
-                Don&#x27;t have an account?
-                <a href="#" className="font-semibold underline ml-1">
-                  Register here.
-                </a>
+                ¿No tienes cuenta aún?
+                <Link to="/register" className="font-semibold underline ml-1">
+                  Registrate aquí.
+                </Link>
               </p>
             </div>
           </div>
@@ -27,7 +27,7 @@ export default function Login() {
         <div className="w-1/2 shadow-2xl">
           <img
             className="hidden object-cover w-full h-screen md:block contrast-75"
-            src="/public/yourspace-login.jpg"
+            src="/yourspace-login.jpg"
           />
         </div>
       </div>
