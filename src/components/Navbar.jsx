@@ -250,7 +250,7 @@ export default function Navbar() {
                                 {item.name}
                               </a>
                               <p aria-hidden="true" className="mt-1">
-                                Shop now
+                                Comprar ahora
                               </p>
                             </div>
                           ))}
