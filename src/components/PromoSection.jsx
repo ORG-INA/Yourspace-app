@@ -10,9 +10,7 @@ export default function PromoSection() {
             </h1>
             <p className="mt-4 text-xl text-black-700">
               Donde tu estilo y las tendencias se encuentran en cada temporada.
-            </p>
-            <p className="mt-4 text-xl text-gray-500">
-              ¡Aprovecha las oportunidades de ésta temporada de ofertas!.
+              ¡Aprovecha las oportunidades!
             </p>
           </div>
           <div>
