@@ -6,7 +6,7 @@ export default function PromoSection() {
           <div className="sm:max-w-lg">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               <p>Bienvenido a</p>
-              <p>Your Space</p>
+              <p>Your Spacesss</p>
             </h1>
             <p className="mt-4 text-xl text-gray-500">
               ¡Aprovecha las oportunidades de ésta temporada de ofertas!.
