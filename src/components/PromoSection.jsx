@@ -8,7 +8,7 @@ export default function PromoSection() {
               <p>Bienvenido a</p>
               <p>Your Space</p>
             </h1>
-            <p className="mt-4 text-xl text-black-700">
+            <p className="mt-4 text-xl text-gray-700">
               Donde tu estilo y las tendencias se encuentran en cada temporada.
               ¡Aprovecha las oportunidades!
             </p>
