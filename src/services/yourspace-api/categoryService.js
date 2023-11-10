@@ -1,8 +1,8 @@
 import { CATEGORIAS_API } from "./endpoints";
-import { fetchWithCredentials } from "./utils";
+import { fetchAndResolve, fetchWithCredentials } from "./utils";
 
 export const getCategories = () => {
-  return fetch(CATEGORIAS_API).then((response) => response.json());
+  return fetchAndResolve(CATEGORIAS_API);
 };
 
 export const createCategory = (CategoryData) => {

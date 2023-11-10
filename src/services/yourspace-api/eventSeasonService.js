@@ -1,8 +1,8 @@
 import { TEMPORADAS_EVENTO_API } from "./endpoints";
-import { fetchWithCredentials } from "./utils";
+import { fetchAndResolve, fetchWithCredentials } from "./utils";
 
 export const getEventSeasons = () => {
-  return fetch(TEMPORADAS_EVENTO_API).then((response) => response.json());
+  return fetchAndResolve(TEMPORADAS_EVENTO_API);
 };
 
 export const createEventSeason = (EventSeasonData) => {

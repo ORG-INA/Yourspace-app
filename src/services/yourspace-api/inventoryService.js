@@ -1,12 +1,12 @@
 import { INVENTARIO_API } from "./endpoints";
-import { fetchWithCredentials } from "./utils";
+import { fetchAndResolve, fetchWithCredentials } from "./utils";
 
 export const getInventarios = () => {
-  return fetch(INVENTARIO_API).then((response) => response.json());
+  return fetchAndResolve(INVENTARIO_API);
 };
 
 export const getInventarioById = (id) => {
-  return fetch(INVENTARIO_API + id).then((response) => response.json());
+  return fetchAndResolve(INVENTARIO_API + id);
 };
 
 export const createInventario = (inventarioData) => {

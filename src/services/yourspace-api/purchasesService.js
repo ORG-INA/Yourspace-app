@@ -1,31 +1,32 @@
 import { CARROS_API } from "./endpoints";
+import { fetchAndResolve } from "./utils";
 
 export const getCarros = () => {
-  return fetch(CARROS_API).then((response) => response.json());
+  return fetchAndResolve(CARROS_API);
 };
 
 export const createCarro = (carroData) => {
-  return fetch(CARROS_API, {
+  return fetchAndResolve(CARROS_API, {
     method: "POST",
     body: JSON.stringify(carroData),
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((response) => response.json());
+  });
 };
 
 export const updateCarro = (carroData) => {
-  return fetch(CARROS_API + carroData.id + "/", {
+  return fetchAndResolve(CARROS_API + carroData.id + "/", {
     method: "PUT",
     body: JSON.stringify(carroData),
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((response) => response.json());
+  });
 };
 
 export const deleteCarro = (id) => {
-  return fetch(CARROS_API + id, {
+  return fetchAndResolve(CARROS_API + id, {
     method: "DELETE",
-  }).then((response) => response.json());
+  });
 };

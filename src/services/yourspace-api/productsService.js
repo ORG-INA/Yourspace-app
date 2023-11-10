@@ -1,12 +1,12 @@
 import { NUEVO_PRODUCTO_INVENTARIO_API, PRODUCTOS_API } from "./endpoints";
-import { fetchWithCredentials } from "./utils";
+import { fetchAndResolve, fetchWithCredentials } from "./utils";
 
 export const getProducts = () => {
-  return fetch(PRODUCTOS_API).then((response) => response.json());
+  return fetchAndResolve(PRODUCTOS_API);
 };
 
 export const getProductById = (id) => {
-  return fetch(PRODUCTOS_API + id).then((response) => response.json());
+  return fetchAndResolve(PRODUCTOS_API + id);
 };
 
 export const createProduct = (productData) => {

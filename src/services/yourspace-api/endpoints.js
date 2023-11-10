@@ -32,7 +32,7 @@ export const ADQUISICION_INVENTARIO_API =
 // Resulta en http://example.com/api/inventory/ + [endpoint]/
 
 export const LOGIN_API = BASE_USERS_API + "login/";
-// export const LOGOUT_API = BASE_USERS_API + "/logout";
+export const LOGOUT_API = BASE_USERS_API + "logout/";
 export const REGISTER_API = BASE_USERS_API + "register/";
 export const TOKEN_REFRESH_API = BASE_USERS_API + "token/refresh/";
 export const TOKEN_VERIFY_API = BASE_USERS_API + "token/verify/";

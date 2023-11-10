@@ -1,28 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import useLogin from "../customHooks/useLoginService";
+import { useAuthContext } from "../contexts/auth/useAuthContext";
 
 function LoginForm() {
-  const { loading, error, loginUser } = useLogin();
+  const { loginUser } = useLogin();
   const navigate = useNavigate();
+  const { setUser } = useAuthContext();
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData);
-      console.log(data);
-      console.log(error);
-      console.log(loading);
-      const response = await loginUser(data);
-      if (response.refresh && response.access) {
-        console.log("Usuario logueado correctamente");
-        alert("Usuario logueado correctamente");
-        navigate("/");
-      } else {
-        console.log("Usuario o contraseña incorrectos");
-        alert("Usuario o contraseña incorrectos");
-      }
-    } catch (error) {
-      console.log("Usuario o contraseña incorrectos");
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    const response = await loginUser(data);
+    if (response) {
+      setUser({ isValid: true, isStaff: undefined });
+      alert("Usuario logueado correctamente");
+      navigate("/");
+    } else {
       alert("Usuario o contraseña incorrectos");
     }
   };

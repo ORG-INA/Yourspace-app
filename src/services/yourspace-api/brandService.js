@@ -1,8 +1,8 @@
 import { MARCAS_API } from "./endpoints";
-import { fetchWithCredentials } from "./utils";
+import { fetchAndResolve, fetchWithCredentials } from "./utils";
 
-export const getBrands = () => {
-  return fetch(MARCAS_API).then((response) => response.json());
+export const getBrands = async () => {
+  return fetchAndResolve(MARCAS_API);
 };
 
 export const createBrand = (BrandData) => {

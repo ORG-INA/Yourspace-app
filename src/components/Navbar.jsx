@@ -23,6 +23,7 @@ import {
 import ShoppingCart from "./ShoppingCart";
 import { Link, useLocation } from "react-router-dom";
 import useCategoryService from "../customHooks/useCategoryService";
+import { useAuthContext } from "../contexts/auth/useAuthContext";
 
 const navigationMockup = {
   categories: [
@@ -49,42 +50,9 @@ const navigationMockup = {
       ],
       sections: [
         {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Dresses", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Denim", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Significant Other", href: "#" },
-          ],
+          id: "",
+          name: "",
+          items: [{ name: "Tops", href: "#" }],
         },
       ],
     },
@@ -130,17 +98,24 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const { loadingCategories, categories: bdcategories } = useCategoryService();
+
   const [open, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [navigation, setNavigation] = useState(navigationMockup);
-  const { loadingCategories, categories: bdcategories } = useCategoryService();
 
-  const { pathname } = useLocation();
+  const location = useLocation();
+
+  const { state } = useAuthContext();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // Realiza la llamada al backend para verificar el token y cargar la información del usuario
+  }, [location]);
 
   useEffect(() => {
     if (!loadingCategories && bdcategories) {
       const transformedObject = transformToDesiredFormat(bdcategories);
-      console.log({ transformedObject, navigation });
       setNavigation((nav) => ({
         ...nav,
         categories: [
@@ -153,10 +128,6 @@ export default function Navbar() {
       }));
     }
   }, [loadingCategories, bdcategories]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
 
   return (
     <div className="bg-white z-30 fixed right-0 left-0 top-0">
@@ -304,18 +275,24 @@ export default function Navbar() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <Link
-                      to="/login"
+                      to={
+                        state.user && state.user.isValid ? "/logout" : "/login"
+                      }
                       className="-m-2 block p-2 font-medium text-gray-900"
                     >
-                      Iniciar sesión
+                      {state.user && state.user.isValid
+                        ? "Cerrar sesión"
+                        : "Iniciar sesión"}
                     </Link>
                   </div>
                   <div className="flow-root">
                     <Link
-                      to="/register"
+                      to={state.user && state.user.isValid ? "/#" : "/register"}
                       className="-m-2 block p-2 font-medium text-gray-900"
                     >
-                      Registrarse
+                      {state.user && state.user.isValid
+                        ? "Configuración"
+                        : "Registrarse"}
                     </Link>
                   </div>
                 </div>
@@ -483,17 +460,21 @@ export default function Navbar() {
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <Link
-                    to="/login"
+                    to={state.user && state.user.isValid ? "/logout" : "/login"}
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
-                    Iniciar sesión
+                    {state.user && state.user.isValid
+                      ? "Cerrar sesión"
+                      : "Iniciar sesión"}
                   </Link>
                   <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                   <Link
-                    to="/register"
+                    to={state.user && state.user.isValid ? "/#" : "/register"}
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
-                    Registrarse
+                    {state.user && state.user.isValid
+                      ? "Configuración"
+                      : "Registrarse"}
                   </Link>
                 </div>
 

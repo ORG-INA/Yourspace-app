@@ -15,6 +15,7 @@ import AuthContainer from "../containers/AuthContainer";
 import AdminContainer from "../containers/AdminContainer";
 import ManageUsers from "../pages/admin-pages/ManageUsers";
 import ManageCategories from "../pages/admin-pages/ManageCategories";
+import Logout from "../pages/public-pages/Logout";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         path: "contact",
         element: <ContactPage />,
       },
+      {
+        path: "logout",
+        element: <Logout />,
+      },
     ],
   },
   {
@@ -51,7 +56,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin-dashboard",
+    path: "/admin-dashboard/*",
     element: <AdminContainer />,
     errorElement: <ErrorPage />,
     children: [
@@ -73,6 +78,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Utiliza el componente de enrutamiento personalizado para proteger rutas
 ]);
 
 export default router;

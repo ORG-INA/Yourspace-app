@@ -11,7 +11,6 @@ const breadcrumbs = [
 export default function ProductPage() {
   const { id } = useParams();
   const { loading, products } = useProductService(id);
-  console.log(products);
   return (
     <div className="bg-white">
       <div className="pt-6">

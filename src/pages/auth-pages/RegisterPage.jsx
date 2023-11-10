@@ -13,7 +13,7 @@ export default function Register() {
           />
         </div>
         <div className="flex flex-col w-full md:w-1/2">
-          <div className="flex justify-center pt-12 md:justify-start md:pl-12 md:-mb-24">
+          <div className="flex justify-center pt-12 md:justify-end md:pr-12 md:-mb-24">
             <Link to="/" className="p-4 text-xl font-bold text-white bg-black">
               YourSpace.
             </Link>

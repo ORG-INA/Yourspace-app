@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import useRegister from "../customHooks/useRegisterService";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
+  const navigate = useNavigate();
   const { error, loading, registerUser } = useRegister();
   const inputRepeatPassword = useRef(null);
-  const onSubmitRegister = (e) => {
+  const onSubmitRegister = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
@@ -17,16 +18,15 @@ function RegisterForm() {
     console.log(data);
     console.log(error);
     console.log(loading);
-    const response = registerUser(data);
-    if (error) {
-      console.log("Error al registrar el usuario");
-      alert("Error al registrar el usuario");
-      return;
-    }
-    if (response) {
+    const response = await registerUser(data);
+    console.log(response);
+    if (response.email) {
       console.log("Usuario registrado correctamente");
       alert("Usuario registrado correctamente");
-      redirect("/login");
+      navigate("/login");
+    } else {
+      console.log("Error al registrar el usuario");
+      alert("Error al registrar el usuario");
     }
   };
   return (

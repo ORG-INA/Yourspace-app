@@ -10,11 +10,13 @@ function useLogin() {
       setLoading(true);
       const response = await login(loginData);
       setLoading(false);
+      if (!response) throw new Error("Error en inicio de sesión.");
       return response;
     } catch (error) {
       setLoading(false);
       setError("Error al iniciar sesión.");
-      console.error("Error en inicio de sesión:", error);
+      console.error(error);
+      return null;
     }
   };
 
