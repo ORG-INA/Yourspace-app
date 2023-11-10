@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
@@ -165,7 +151,7 @@ export default function Navbar() {
                     onClick={() => setOpen(false)}
                   >
                     <span className="absolute -inset-0.5" />
-                    <span className="sr-only">Close menu</span>
+                    <span className="sr-only">Cerrar menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
@@ -315,14 +301,14 @@ export default function Navbar() {
                 onClick={() => setOpen(true)}
               >
                 <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">Abrir menu</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
                 <Link to="/">
-                  <span className="sr-only">Your Company</span>
+                  <span className="sr-only">YourSpace</span>
                   <img
                     className="h-12 w-auto rounded-full"
                     src="/yourspace-logo.png"
@@ -397,7 +383,7 @@ export default function Navbar() {
                                             aria-hidden="true"
                                             className="mt-1"
                                           >
-                                            Shop now
+                                            Comprar ahora
                                           </p>
                                         </div>
                                       ))}
@@ -481,7 +467,7 @@ export default function Navbar() {
                 {/* Search */}
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
+                    <span className="sr-only">Buscar</span>
                     <MagnifyingGlassIcon
                       className="h-6 w-6"
                       aria-hidden="true"
@@ -502,7 +488,7 @@ export default function Navbar() {
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                       0
                     </span>
-                    <span className="sr-only">items in cart, view bag</span>
+                    <span className="sr-only">Items en carro, ver carro.</span>
                   </span>
                 </div>
               </div>
