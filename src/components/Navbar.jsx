@@ -41,10 +41,10 @@ const CustomNavbar = () => {
       </Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/">Inicio</Nav.Link>
-        <Nav.Link href="/">Todos</Nav.Link>
-        <Nav.Link href="/">Mujer</Nav.Link>
-        <Nav.Link href="/">Hombre</Nav.Link>
-        <Nav.Link href="/">Accesorios</Nav.Link>
+        <Nav.Link href="#">Todos</Nav.Link>
+        <Nav.Link href="#">Mujer</Nav.Link>
+        <Nav.Link href="#">Hombre</Nav.Link>
+        <Nav.Link href="#">Accesorios</Nav.Link>
         <Nav.Link href="#">Contacto</Nav.Link>
       </Nav>
       <Navbar.Collapse className="justify-content-end">
