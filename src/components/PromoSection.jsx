@@ -1,96 +1,92 @@
-export default function PromoSection() {
-  return (
-    <div className="relative overflow-hidden bg-white">
-      <div className="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
-        <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
-          <div className="sm:max-w-lg">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              <p>Bienvenido a</p>
-              <p>Your Space.</p>
-            </h1>
-            <p className="mt-4 text-xl text-gray-700">
-              Donde tu estilo y las tendencias se encuentran en cada temporada.
-              ¡Aprovecha las oportunidades!
-            </p>
-          </div>
-          <div>
-            <div className="mt-5">
-              {/* Decorative image grid */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl"
-              >
-                <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
-                  <div className="flex items-center space-x-6 lg:space-x-8">
-                    <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                      <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                      <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                    </div>
-                    <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                      <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <div className="h-64 w-44 overflow-hidden rounded-lg">
-                        <img
-                          src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
-                          alt=""
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+import React from 'react';
+import { Container, Button, Card, Row, Col} from 'react-bootstrap';
+import { Link} from 'react-router-dom';
+import '../styles.css';
 
-              <a
-                href="#"
-                className="inline-block rounded-md border border-transparent bg-slate-950 px-8 py-3 text-center font-medium text-white hover:bg-slate-700"
-              >
-                Ir al evento
-              </a>
+
+
+const Home = () => {
+  const productosDestacados = [
+    { id: 1, nombre: 'Producto 1', precio: 20 },
+    { id: 2, nombre: 'Producto 2', precio: 30 },
+    { id: 3, nombre: 'Producto 3', precio: 25 },
+  ];
+
+  return (
+    <Container className="home-container">
+       <div className="row row-cols-1 row-cols-md-3 g-4">
+        <div className="col">
+          <Link to="/inicio" className="link-sin-subrayado">
+            <div className="card h-100">
+              <img src="yourspace-login.jpg" className="card-img-top" alt="Mujer" />
+              <div className="card-body">
+                <h5 className="card-title">Mujer</h5>
+                <p className="card-text">
+                  Descubre las últimas tendencias en moda femenina.
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
+        </div>
+        <div className="col">
+          <Link to="/" className="link-sin-subrayado">
+            <div className="card h-100">
+              <img src="yourspace-login.jpg" className="card-img-top" alt="Hombre" />
+              <div className="card-body">
+                <h5 className="card-title">Hombre</h5>
+                <p className="card-text">
+                  Explora nuestra colección de moda masculina.
+                </p>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div className="col">
+          <Link to="/" className="link-sin-subrayado">
+            <div className="card h-100">
+              <img src="yourspace-login.jpg" className="card-img-top" alt="Accesorios" />
+              <div className="card-body">
+                <h5 className="card-title">Accesorios</h5>
+                <p className="card-text">
+                  Completa tu look con nuestra selección de accesorios.
+                </p>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
-    </div>
+      <div className="text-center mt-4">
+        <h1 id="main-title">
+          <p>Bienvenido a</p>
+          <p>Tu Espacio.</p>
+        </h1>
+        <br />
+        <p className="text-style">
+          Donde tu estilo y las tendencias se encuentran en cada temporada.
+        </p>
+        <p className="text-style">¡Aprovecha las oportunidades!</p>
+        <br />
+        <br />
+        <Button variant="primary">Ver Temporada Actual</Button>
+      </div>
+
+      <section className="mt-5">
+        <h2>Productos Destacados</h2>
+        <Row>
+          {productosDestacados.map((producto) => (
+            <Col key={producto.id} md={4} className="mb-4">
+              <Card>
+                <Card.Body>
+                  <Card.Title>{producto.nombre}</Card.Title>
+                  <Card.Text>Precio: ${producto.precio}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </section>
+    </Container>
   );
-}
+};
+
+export default Home;
