@@ -20,9 +20,6 @@ import ManageCategories from "../pages/admin-pages/ManageCategories";
 import Logout from "../pages/public-pages/Logout";
 
 const router = createBrowserRouter([
-  
-  
-  
   {
     path: "/",
     element: <PublicContainer />,

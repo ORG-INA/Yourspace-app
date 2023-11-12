@@ -1,7 +1,7 @@
 export const API_BASE_URL =
   window.location.hostname === "localhost" // Comprobar si estás en el entorno local
     ? "http://localhost:8000/"
-    : "http://44.207.70.246/"; // URL de producción
+    : "https://api-ys.eak-dev.com/"; // URL de producción
 export const ADMIN_API = API_BASE_URL + "admin/";
 
 export const BASE_API = API_BASE_URL + "api/";
