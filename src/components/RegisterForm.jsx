@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import useRegister from "../customHooks/useRegisterService";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faFingerprint, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -31,60 +33,90 @@ function RegisterForm() {
   };
   return (
     <>
-      <form className="bg-white mt-5" onSubmit={onSubmitRegister}>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-          
-          <input
-            className="pl-2 outline-none border-none"
-            type="text"
-            name="name"
-            id=""
-            placeholder="Nombre"
-            required
-          />
+      <form  onSubmit={onSubmitRegister}>
+        <div className="mb-3">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text oval-icon">
+                  <FontAwesomeIcon icon={faUser} />
+              </span>
+            </div>  
+            <input
+              type="text"
+              className="form-control oval-input"
+              name="name"
+              id=""
+              placeholder="Nombre"
+              required
+            />
+          </div>
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-          
-          <input
-            className="pl-2 outline-none border-none"
-            type="text"
-            name="last_name"
-            id=""
-            placeholder="Apellido"
-            required
-          />
+        <div className="mb-3">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text oval-icon">
+                <FontAwesomeIcon icon={faFingerprint} />
+              </span>
+            </div>  
+            <input
+              type="text"
+              className="form-control oval-input"
+              name="last_name"
+              id=""
+              placeholder="Apellido"
+              required
+            />
+          </div>
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-         
-          <input
-            className="pl-2 outline-none border-none"
-            type="email"
-            name="email"
-            id=""
-            placeholder="Email Address"
-            required
-          />
+        <div className="mb-3">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text oval-icon">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </span>
+            </div>  
+            <input
+                type="email"
+                className="form-control oval-input"
+                name="email"
+                id=""
+                placeholder="Email Address"
+                required
+              />
+          </div>
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-         
-          <input
-            className="pl-2 outline-none border-none"
-            type="password"
-            name="password"
-            id=""
-            placeholder="Contraseña"
-            required
-          />
+        <div className="mb-3">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text oval-icon">
+                <FontAwesomeIcon icon={faLock} />
+              </span>
+            </div>  
+            <input
+                type="password"
+                className="form-control oval-input"
+                name="password"
+                id=""
+                placeholder="Contraseña"
+                required
+              />
+          </div>
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
-        
-          <input
-            className="pl-2 outline-none border-none"
-            type="password"
-            ref={inputRepeatPassword}
-            required
-            placeholder="Repetir Contraseña"
-          />
+        <div className="mb-3">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text oval-icon">
+                <FontAwesomeIcon icon={faLock} />
+              </span>
+            </div>  
+            <input
+              type="password"
+              className="form-control oval-input"
+              ref={inputRepeatPassword}
+              required
+              placeholder="Repetir Contraseña"
+            />
+          </div>
         </div>
         <button
           type="submit"
