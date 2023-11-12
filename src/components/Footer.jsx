@@ -10,9 +10,6 @@ const Footer = () => {
             <h5 className="text-uppercase mb-4 font-weight-bold">Sobre Nosotros</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#" className="text-muted">Equipo</a>
-              </li>
-              <li>
                 <a href="#" className="text-muted">Historia</a>
               </li>
               {/* Agrega más elementos según necesites */}
@@ -26,9 +23,6 @@ const Footer = () => {
               <li>
                 <a href="#" className="text-muted">Envíanos un mensaje</a>
               </li>
-              <li>
-                <a href="#" className="text-muted">Solicita un presupuesto</a>
-              </li>
               {/* Agrega más elementos según necesites */}
             </ul>
           </div>
@@ -37,12 +31,6 @@ const Footer = () => {
           <div className="col-md-3">
             <h5 className="text-uppercase mb-4 font-weight-bold">Menú</h5>
             <ul className="list-unstyled">
-              <li>
-                <a href="#" className="text-muted">Nuestro menú</a>
-              </li>
-              <li>
-                <a href="#" className="text-muted">Especiales</a>
-              </li>
               {/* Agrega más elementos según necesites */}
             </ul>
           </div>
