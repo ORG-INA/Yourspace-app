@@ -19,7 +19,7 @@ export default function Register() {
             <div className="pt-12 text-center">
               <p>
                 ¿Ya tienes una cuenta?
-                <Link to="/login" className="font-semibold underline ml-1">
+                <Link to="/login" className="text-dark">
                   Ir a iniciar sesión.
                 </Link>
               </p>
