@@ -34,9 +34,7 @@ function AdminContainer() {
 
   return (
     <>
-      <div className="grid grid-cols-[256px_auto] grid-rows-[64px_auto]">
-        {protectedContent.map((component) => component)}
-      </div>
+      <div className="">{protectedContent.map((component) => component)}</div>
     </>
   );
 }

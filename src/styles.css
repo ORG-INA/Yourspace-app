@@ -1,17 +1,15 @@
-
-
 .navbar-text-black {
-  height: 95px; 
+  height: 95px;
   margin-right: 90px;
   margin-left: 90px;
 }
 
 .navbar-text-black a {
-  font-size: 19px; 
+  font-size: 19px;
 }
 
 .navbar-text-black .nav-link {
-  font-size: 19px; 
+  font-size: 19px;
   color: black;
 }
 
@@ -29,10 +27,10 @@
 .btn-primary {
   background-color: #790086;
   border-color: #790086;
-}  
+}
 
 .btn-primary:hover {
-  background-color: #65156d ;
+  background-color: #65156d;
   border-color: #65156d;
   color: #fff;
 }
@@ -50,15 +48,17 @@
 }
 
 .home-container {
-  margin-top: 100px; 
-  background-color: #fffcfc; 
-  padding: 25px; 
+  margin-top: 100px;
+  background-color: #fffcfc;
+  padding: 25px;
 }
-
-
 
 .link-sin-subrayado {
-  text-decoration: none; 
-  color: inherit; 
+  text-decoration: none;
+  color: inherit;
 }
 
+.link-sin-subrayado {
+  text-decoration: none;
+  color: inherit;
+}

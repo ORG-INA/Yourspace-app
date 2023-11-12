@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useLogin from "../customHooks/useLoginService";
 import { useAuthContext } from "../contexts/auth/useAuthContext";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 function LoginForm() {
   const { loginUser } = useLogin();
@@ -23,7 +23,7 @@ function LoginForm() {
   };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
@@ -57,8 +57,10 @@ function LoginForm() {
           </div>
         </div>
         <div className="mb-3 text-center">
-            <br/>
-            <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
+          <br />
+          <button type="submit" className="btn btn-primary">
+            Iniciar Sesión
+          </button>
         </div>
       </form>
     </>

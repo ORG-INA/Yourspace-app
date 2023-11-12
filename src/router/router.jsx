@@ -1,6 +1,5 @@
-import React from 'react';
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-
 
 import ErrorPage from "../components/ErrorPage";
 import HomePage from "../pages/public-pages/HomePage";
@@ -20,9 +19,6 @@ import ManageCategories from "../pages/admin-pages/ManageCategories";
 import Logout from "../pages/public-pages/Logout";
 
 const router = createBrowserRouter([
-  
-  
-  
   {
     path: "/",
     element: <PublicContainer />,
@@ -44,6 +40,7 @@ const router = createBrowserRouter([
         path: "logout",
         element: <Logout />,
       },
+      {},
     ],
   },
   {
