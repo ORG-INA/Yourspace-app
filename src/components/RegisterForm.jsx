@@ -118,12 +118,15 @@ function RegisterForm() {
             />
           </div>
         </div>
-        <button
-          type="submit"
-          className="block w-full bg-black mt-10 py-2  text-white font-semibold"
-        >
-          Registrarse
-        </button>
+        <div className="text-center">
+          <br/>
+          <button
+            type="submit"
+            className="btn btn-primary"
+          >
+            Registrarse
+          </button>
+        </div>
       </form>
     </>
   );
