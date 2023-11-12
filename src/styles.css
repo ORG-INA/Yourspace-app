@@ -1,4 +1,5 @@
 
+
 .navbar-text-black {
   height: 95px; 
   margin-right: 90px;
@@ -54,11 +55,10 @@
   padding: 25px; 
 }
 
-.container-fluid{
-  margin-top: 100px; 
-}
+
 
 .link-sin-subrayado {
   text-decoration: none; 
   color: inherit; 
 }
+
