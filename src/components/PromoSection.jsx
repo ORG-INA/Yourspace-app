@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Button, Card, Row, Col} from 'react-bootstrap';
 import { Link} from 'react-router-dom';
 import '../styles.css';
+import ProductList from "./../components/ProductList";
 
 
 
@@ -71,19 +72,7 @@ const Home = () => {
       </div>
 
       <section className="mt-5">
-        <h2>Productos Destacados</h2>
-        <Row>
-          {productosDestacados.map((producto) => (
-            <Col key={producto.id} md={4} className="mb-4">
-              <Card>
-                <Card.Body>
-                  <Card.Title>{producto.nombre}</Card.Title>
-                  <Card.Text>Precio: ${producto.precio}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+        <ProductList />
       </section>
     </Container>
   );
