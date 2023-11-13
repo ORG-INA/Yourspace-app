@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Button, Card, Row, Col } from "react-bootstrap";
+import { Container, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../styles.css";
 import ProductList from "./ProductList";
@@ -16,7 +16,7 @@ const Home = () => {
                 className="card-img-top"
                 alt="Mujer"
               />
-              <div className="card-body">
+              <div className="card-body text-center">
                 <h5 className="card-title">Mujer</h5>
                 <p className="card-text">
                   Descubre las últimas tendencias en moda femenina.
@@ -33,7 +33,7 @@ const Home = () => {
                 className="card-img-top"
                 alt="Hombre"
               />
-              <div className="card-body">
+              <div className="card-body text-center">
                 <h5 className="card-title">Hombre</h5>
                 <p className="card-text">
                   Explora nuestra colección de moda masculina.
@@ -50,7 +50,7 @@ const Home = () => {
                 className="card-img-top"
                 alt="Accesorios"
               />
-              <div className="card-body">
+              <div className="card-body text-center">
                 <h5 className="card-title">Accesorios</h5>
                 <p className="card-text">
                   Completa tu look con nuestra selección de accesorios.
