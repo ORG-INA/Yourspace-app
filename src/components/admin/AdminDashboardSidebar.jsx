@@ -6,11 +6,12 @@ import {
   UserIcon,
   WindowIcon,
 } from "@heroicons/react/20/solid";
+import { Accordion } from "react-bootstrap";
 
 const opciones = [
   {
     key: "ecommerce",
-    icon: <BookOpenIcon className="w-5 mr-2" />,
+    icon: <BookOpenIcon className="sidebar_icon_size me-2" />,
     text: "E-Commerce",
     elementos: [
       { key: "Gestionar productos", path: "/admin-dashboard/products" },
@@ -19,7 +20,7 @@ const opciones = [
   },
   {
     key: "usuarios",
-    icon: <UserIcon className="w-5 mr-2" />,
+    icon: <UserIcon className="sidebar_icon_size me-2" />,
     text: "Usuarios",
     elementos: [
       { key: "Gestionar", path: "/admin-dashboard/users" },
@@ -29,7 +30,7 @@ const opciones = [
   },
   {
     key: "promociones",
-    icon: <ChartBarIcon className="w-5 mr-2" />,
+    icon: <ChartBarIcon className="sidebar_icon_size me-2" />,
     text: "Informes",
     elementos: [
       { key: "Temporadas / Eventos", path: "/admin-dashboard/reports" },
@@ -38,7 +39,7 @@ const opciones = [
   },
   {
     key: "vista",
-    icon: <WindowIcon className="w-5 mr-2" />,
+    icon: <WindowIcon className="sidebar_icon_size me-2" />,
     text: "Vistas",
     elementos: [
       { key: "Imágenes", path: "/admin-dashboard/views" },
@@ -64,47 +65,39 @@ function AdminDashboardSidebar() {
 
   return (
     <>
-      <aside className="bg-gray-800 text-white p-4 w-64 h-screen sticky top-0">
+      <aside
+        className="shadow p-4 position-fixed vh-100 bg-dark"
+        data-bs-theme="dark"
+      >
+        <h1 className="text-white text-center mb-4 text-decoration-underline">
+          YourSpace.
+        </h1>
         <nav>
-          <ul className="space-y-2">
+          <Accordion alwaysOpen className="shadow" data-bs-theme="dark">
             {opciones.map((opcion) => (
-              <li
+              <Accordion.Item
                 key={opcion.key}
                 className="opcion-con-desplegable"
-                onClick={() => toggleDesplegable(opcion.key)}
+                eventKey={opcion.key}
               >
-                <div className="flex items-center justify-start p-2 hover:bg-gray-700">
+                <Accordion.Header>
                   {opcion.icon}
-                  <div className="flex items-center">
-                    <span>{opcion.text}</span>
-                  </div>
-
-                  <i
-                    className={`fas fa-chevron-down text-xs ${
-                      desplegables[opcion.key] ? "rotate-180" : ""
-                    }`}
-                  ></i>
-                </div>
-                <ul
-                  className={`desplegable ml-4 ${
-                    desplegables[opcion.key] ? "" : "hidden"
-                  }`}
-                >
+                  <span className="me-3">{opcion.text}</span>
+                </Accordion.Header>
+                <Accordion.Body>
                   {opcion.elementos.map((elemento, index) => (
-                    <li key={index}>
-                      <Link
-                        to={elemento.path}
-                        className="p-2 hover-bg-gray-700 flex items-center hover:bg-gray-700"
-                      >
-                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                        {elemento.key}
-                      </Link>
-                    </li>
+                    <Link
+                      key={index}
+                      to={elemento.path}
+                      className="d-block mb-1 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                    >
+                      {elemento.key}
+                    </Link>
                   ))}
-                </ul>
-              </li>
+                </Accordion.Body>
+              </Accordion.Item>
             ))}
-          </ul>
+          </Accordion>
         </nav>
       </aside>
     </>

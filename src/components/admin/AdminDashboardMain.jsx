@@ -1,7 +1,7 @@
 function AdminDashboardMain({ children }) {
   return (
     <>
-      <main className="">{children}</main>
+      <main className="container py-3">{children}</main>
     </>
   );
 }

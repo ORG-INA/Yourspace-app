@@ -7,10 +7,12 @@ import {
 } from "@heroicons/react/20/solid";
 
 import Carro from "./Carro";
+import { useAuthContext } from "../contexts/auth/useAuthContext";
 
 const CustomNavbar = () => {
   const [mostrarCampoBusqueda, setMostrarCampoBusqueda] = useState(false);
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
+  const { state } = useAuthContext();
 
   const toggleCampoBusqueda = () => {
     setMostrarCampoBusqueda(!mostrarCampoBusqueda);
@@ -78,10 +80,10 @@ const CustomNavbar = () => {
       <Navbar.Collapse className="justify-content-end">
         <Nav>
           <Nav.Link as={Link} to="/login">
-            Iniciar Sesión
+            {state.user ? "Cerrar sesión" : "Iniciar sesión"}
           </Nav.Link>
           <Nav.Link as={Link} to="/register">
-            Registrarse
+            {state.user ? "Mi cuenta" : "Registrarse"}
           </Nav.Link>
 
           <Nav.Link onClick={toggleCampoBusqueda}>

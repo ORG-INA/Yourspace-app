@@ -62,3 +62,21 @@
   text-decoration: none;
   color: inherit;
 }
+
+.admin_container_grid {
+  display: grid;
+  grid-template:
+    "sidebar main" /
+    256px auto;
+}
+.admin_container_grid aside {
+  grid-area: sidebar;
+}
+.admin_container_grid main {
+  grid-area: main;
+}
+/* grid grid grid-cols-[256px_auto] grid-rows-[64px_auto] */
+.sidebar_icon_size {
+  width: 24px;
+  height: 24px;
+}

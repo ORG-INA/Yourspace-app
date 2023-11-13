@@ -13,9 +13,8 @@ function AdminContainer() {
     if (state.user) {
       if (state.user.isStaff) {
         setProtectedContent([
-          <AdminDashboardNav key={1} />,
-          <AdminDashboardSidebar key={2} />,
-          <AdminDashboardMain key={3}>
+          <AdminDashboardSidebar key={1} />,
+          <AdminDashboardMain key={2}>
             <Outlet />
           </AdminDashboardMain>,
         ]);
@@ -34,7 +33,12 @@ function AdminContainer() {
 
   return (
     <>
-      <div className="">{protectedContent.map((component) => component)}</div>
+      <div
+        className="admin_container_grid bg-dark min-vh-100"
+        data-bs-theme="dark"
+      >
+        {protectedContent.map((component) => component)}
+      </div>
     </>
   );
 }
