@@ -27,10 +27,11 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
   const { seasons, loading: loadingEvents } = useEventSeasonService();
   const imagePreviewRef = useRef(null);
 
-  const onSubmitForm = (e) => {
+  const onSubmitForm = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    addProductDirectToInventory(filteringDataForm(formData));
+    await addProductDirectToInventory(filteringDataForm(formData));
+    alert("Producto agregado correctamente");
     reloadProducts();
     e.target.reset();
   };

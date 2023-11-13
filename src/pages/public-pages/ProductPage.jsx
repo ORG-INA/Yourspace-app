@@ -13,17 +13,13 @@ export default function ProductPage() {
   const { loading, products } = useProductService(id);
   return (
     <div className="bg-white">
-      <div className="pt-6">
-        {loading ? (
-          ""
-        ) : (
-          <>
-            <Breadcrumb breadcrumbs={breadcrumbs} name={products.name} />
-
-            <ProductInfo product={products} />
-          </>
-        )}
-      </div>
+      {loading ? (
+        ""
+      ) : (
+        <div style={{ marginTop: "100px" }} className="position-relative">
+          <ProductInfo product={products} />
+        </div>
+      )}
     </div>
   );
 }

@@ -61,7 +61,7 @@ const CustomNavbar = () => {
     >
       <Navbar.Brand as={Link} to="/" className="d-flex justify-content-center">
         <Image
-          src="your_space.png"
+          src="/your_space.png"
           alt="Logo"
           style={{ maxWidth: "150px", marginRight: "10px" }}
           className={`m-auto ${scrolled ? "w-50 m-auto" : ""}`}
