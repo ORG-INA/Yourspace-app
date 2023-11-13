@@ -4,20 +4,6 @@ html {
 body {
   overflow-x: hidden;
 }
-.navbar-text-black {
-  height: 95px;
-  margin-right: 90px;
-  margin-left: 90px;
-}
-
-.navbar-text-black a {
-  font-size: 19px;
-}
-
-.navbar-text-black .nav-link {
-  font-size: 19px;
-  color: black;
-}
 
 #main-title {
   font-size: 55px;
@@ -30,38 +16,10 @@ body {
   color: #555;
 }
 
-.btn-primary {
-  background-color: #790086;
-  border-color: #790086;
-}
-
-.btn-primary:hover {
-  background-color: #65156d;
-  border-color: #65156d;
-  color: #fff;
-}
-.btn-primary:active,
-.btn-primary:focus,
-.btn-primary.focus,
-.btn-primary:active:focus,
-.btn-primary:active.focus,
-.btn-primary:focus:active,
-.btn-primary:active.focus,
-.btn-primary.focus:active {
-  color: #fff; /* color del texto cuando se presiona */
-  background-color: #790086; /* color de fondo cuando se presiona */
-  border-color: #790086; /* color del borde cuando se presiona */
-}
-
 .home-container {
   margin-top: 100px;
   background-color: #fffcfc;
   padding: 25px;
-}
-
-.link-sin-subrayado {
-  text-decoration: none;
-  color: inherit;
 }
 
 .link-sin-subrayado {
