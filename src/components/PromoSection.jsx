@@ -1,25 +1,21 @@
-import React from 'react';
-import { Container, Button, Card, Row, Col} from 'react-bootstrap';
-import { Link} from 'react-router-dom';
-import '../styles.css';
+import React from "react";
+import { Container, Button, Card, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "../styles.css";
 import ProductList from "./../components/ProductList";
 
-
-
 const Home = () => {
-  const productosDestacados = [
-    { id: 1, nombre: 'Producto 1', precio: 20 },
-    { id: 2, nombre: 'Producto 2', precio: 30 },
-    { id: 3, nombre: 'Producto 3', precio: 25 },
-  ];
-
   return (
     <Container className="home-container">
-       <div className="row row-cols-1 row-cols-md-3 g-4">
+      <div className="row row-cols-1 row-cols-md-3 g-4">
         <div className="col">
           <Link to="/inicio" className="link-sin-subrayado">
             <div className="card h-100">
-              <img src="yourspace-login.jpg" className="card-img-top" alt="Mujer" />
+              <img
+                src="yourspace-login.jpg"
+                className="card-img-top"
+                alt="Mujer"
+              />
               <div className="card-body">
                 <h5 className="card-title">Mujer</h5>
                 <p className="card-text">
@@ -32,7 +28,11 @@ const Home = () => {
         <div className="col">
           <Link to="/" className="link-sin-subrayado">
             <div className="card h-100">
-              <img src="yourspace-login.jpg" className="card-img-top" alt="Hombre" />
+              <img
+                src="yourspace-login.jpg"
+                className="card-img-top"
+                alt="Hombre"
+              />
               <div className="card-body">
                 <h5 className="card-title">Hombre</h5>
                 <p className="card-text">
@@ -45,7 +45,11 @@ const Home = () => {
         <div className="col">
           <Link to="/" className="link-sin-subrayado">
             <div className="card h-100">
-              <img src="yourspace-login.jpg" className="card-img-top" alt="Accesorios" />
+              <img
+                src="yourspace-login.jpg"
+                className="card-img-top"
+                alt="Accesorios"
+              />
               <div className="card-body">
                 <h5 className="card-title">Accesorios</h5>
                 <p className="card-text">

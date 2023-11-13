@@ -17,6 +17,8 @@ import AdminContainer from "../containers/AdminContainer";
 import ManageUsers from "../pages/admin-pages/ManageUsers";
 import ManageCategories from "../pages/admin-pages/ManageCategories";
 import Logout from "../pages/public-pages/Logout";
+import TiendaPage from "../pages/public-pages/TiendaPage";
+import CategoryPage from "../pages/public-pages/CategoryPage";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +42,14 @@ const router = createBrowserRouter([
         path: "logout",
         element: <Logout />,
       },
-      {},
+      {
+        path: "/tienda",
+        element: <TiendaPage />,
+      },
+      {
+        path: "/tienda/:category",
+        element: <CategoryPage />,
+      },
     ],
   },
   {
