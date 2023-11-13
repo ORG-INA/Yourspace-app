@@ -1,26 +1,33 @@
 import { useState } from "react";
 import useCategoryService from "../../customHooks/useCategoryService";
-import { Form, Table } from "react-bootstrap";
+import { Form, Pagination, Table } from "react-bootstrap";
+import usePagination from "../../customHooks/usePagination";
 
 function AdminCategoryTable() {
   const { loading, categories, addCategory, removeCategory } =
     useCategoryService();
 
-  const [categoriaData, setCategoriaData] = useState({
+  const [categoriaForm, setCategoriaForm] = useState({
     nombre_categoria: "",
     id_categoria_padre: null,
   });
 
+  const { currentPage, totalPages, currentPageData, paginate } = usePagination(
+    categories,
+    5,
+    "nombre"
+  );
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setCategoriaData({
-      ...categoriaData,
+    setCategoriaForm({
+      ...categoriaForm,
       [name]: value,
     });
   };
 
   const onAddCategory = () => {
-    addCategory(categoriaData);
+    addCategory(categoriaForm);
   };
 
   const onDeleteCategory = (id) => () => {
@@ -28,11 +35,19 @@ function AdminCategoryTable() {
   };
 
   const getCategoriaNameById = (id) => {
-    const categoria = categories.find(
-      (category) => category.id_categoria == id
-    );
+    const categoria = categories
+      ? categories.find((category) => category.id_categoria == id)
+      : null;
     if (categoria) return categoria.nombre_categoria;
     else return "N/A";
+  };
+
+  const onPrevPage = () => {
+    paginate(currentPage - 1);
+  };
+
+  const onNextPage = () => {
+    paginate(currentPage + 1);
   };
 
   return (
@@ -55,28 +70,30 @@ function AdminCategoryTable() {
                 type="text"
                 id="nombre_categoria"
                 name="nombre_categoria"
-                value={categoriaData.nombre_categoria}
+                value={categoriaForm.nombre_categoria}
                 onChange={handleInputChange}
               />
             </td>
             <td scope="row">
-              <select
+              <Form.Select
                 id="id_categoria_padre"
                 name="id_categoria_padre"
-                value={categoriaData.id_categoria_padre || ""}
+                value={categoriaForm.id_categoria_padre || ""}
                 onChange={handleInputChange}
                 className="form-select"
               >
                 <option value={null}>***Categoria padre***</option>
-                {categories.map((category) => (
-                  <option
-                    key={category.id_categoria}
-                    value={category.id_categoria}
-                  >
-                    {category.nombre_categoria}
-                  </option>
-                ))}
-              </select>
+                {categories.length > 0
+                  ? categories.map((category) => (
+                      <option
+                        key={category.id_categoria}
+                        value={category.id_categoria}
+                      >
+                        {category.nombre_categoria}
+                      </option>
+                    ))
+                  : ""}
+              </Form.Select>
             </td>
             <td>
               <a
@@ -90,8 +107,8 @@ function AdminCategoryTable() {
           </tr>
 
           {/* FILAS DE CATEGORIAS */}
-          {!loading
-            ? categories.map((category) => (
+          {categories.length > 0
+            ? currentPageData.map((category) => (
                 <tr key={category.id_categoria}>
                   <td>{category.nombre_categoria}</td>
                   <td scope="row">
@@ -110,6 +127,37 @@ function AdminCategoryTable() {
             : null}
         </tbody>
       </Table>
+      {currentPageData.length > 0 ? (
+        <Pagination>
+          <Pagination.First onClick={() => paginate(1)} />
+          <Pagination.Prev
+            onClick={onPrevPage}
+            disabled={currentPage == 1 ? true : false}
+          />
+          {/* <Pagination.Item onClick={() => paginate(1)}>{1}</Pagination.Item> */}
+          {/* <Pagination.Ellipsis /> */}
+
+          {/* <Pagination.Item>{10}</Pagination.Item>
+          <Pagination.Item>{11}</Pagination.Item> */}
+          <Pagination.Item active>{currentPage}</Pagination.Item>
+          {/* <Pagination.Item>{13}</Pagination.Item>
+          <Pagination.Item disabled>{14}</Pagination.Item> */}
+
+          {/* <Pagination.Ellipsis /> */}
+          {/* <Pagination.Item
+            onClick={() => {
+              paginate(totalPages());
+            }}
+          >
+            {totalPages()}
+          </Pagination.Item> */}
+          <Pagination.Next
+            onClick={onNextPage}
+            disabled={totalPages() == currentPage ? true : false}
+          />
+          <Pagination.Last onClick={() => paginate(totalPages())} />
+        </Pagination>
+      ) : null}
     </>
   );
 }

@@ -1,8 +1,13 @@
 import { useRef } from "react";
 import useRegister from "../customHooks/useRegisterService";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faFingerprint, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faFingerprint,
+  faEnvelope,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -17,12 +22,8 @@ function RegisterForm() {
       alert("Las contraseñas no coinciden");
       return;
     }
-    console.log(data);
-    console.log(error);
-    console.log(loading);
     const response = await registerUser(data);
-    console.log(response);
-    if (response.email) {
+    if (response) {
       console.log("Usuario registrado correctamente");
       alert("Usuario registrado correctamente");
       navigate("/login");
@@ -33,14 +34,17 @@ function RegisterForm() {
   };
   return (
     <>
-      <form  onSubmit={onSubmitRegister}>
+      <form
+        onSubmit={onSubmitRegister}
+        style={{ maxWidth: "450px", margin: "0 auto" }}
+      >
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text oval-icon">
-                  <FontAwesomeIcon icon={faUser} />
+              <span className="input-group-text oval-icon h-100">
+                <FontAwesomeIcon icon={faUser} />
               </span>
-            </div>  
+            </div>
             <input
               type="text"
               className="form-control oval-input"
@@ -54,10 +58,10 @@ function RegisterForm() {
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text oval-icon">
+              <span className="input-group-text oval-icon h-100">
                 <FontAwesomeIcon icon={faFingerprint} />
               </span>
-            </div>  
+            </div>
             <input
               type="text"
               className="form-control oval-input"
@@ -71,44 +75,45 @@ function RegisterForm() {
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text oval-icon">
+              <span className="input-group-text oval-icon h-100">
                 <FontAwesomeIcon icon={faEnvelope} />
               </span>
-            </div>  
+            </div>
             <input
-                type="email"
-                className="form-control oval-input"
-                name="email"
-                id=""
-                placeholder="Email Address"
-                required
-              />
+              type="email"
+              className="form-control oval-input"
+              name="email"
+              id=""
+              placeholder="Email Address"
+              required
+            />
           </div>
         </div>
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text oval-icon">
+              <span className="input-group-text oval-icon h-100">
                 <FontAwesomeIcon icon={faLock} />
               </span>
-            </div>  
+            </div>
             <input
-                type="password"
-                className="form-control oval-input"
-                name="password"
-                id=""
-                placeholder="Contraseña"
-                required
-              />
+              type="password"
+              className="form-control oval-input"
+              defaultValue=""
+              name="password"
+              id=""
+              placeholder="Contraseña"
+              required
+            />
           </div>
         </div>
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text oval-icon">
+              <span className="input-group-text oval-icon h-100">
                 <FontAwesomeIcon icon={faLock} />
               </span>
-            </div>  
+            </div>
             <input
               type="password"
               className="form-control oval-input"
@@ -119,11 +124,8 @@ function RegisterForm() {
           </div>
         </div>
         <div className="text-center">
-          <br/>
-          <button
-            type="submit"
-            className="btn btn-primary"
-          >
+          <br />
+          <button type="submit" className="btn btn-dark">
             Registrarse
           </button>
         </div>

@@ -23,11 +23,11 @@ function LoginForm() {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ minWidth: "260px" }}>
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text h-100">
                 <FontAwesomeIcon icon={faEnvelope} />
               </span>
             </div>
@@ -43,7 +43,7 @@ function LoginForm() {
         <div className="mb-3">
           <div className="input-group">
             <div className="input-group-prepend">
-              <span className="input-group-text">
+              <span className="input-group-text h-100">
                 <FontAwesomeIcon icon={faLock} />
               </span>
             </div>
@@ -58,7 +58,7 @@ function LoginForm() {
         </div>
         <div className="mb-3 text-center">
           <br />
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-dark">
             Iniciar Sesión
           </button>
         </div>

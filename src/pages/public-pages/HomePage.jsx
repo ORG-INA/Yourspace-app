@@ -1,5 +1,5 @@
 import Footer from "../../components/Footer";
-import PromoSection from "../../components/PromoSection";
+import PromoSection from "../../components/Home";
 
 export default function HomePage() {
   return (

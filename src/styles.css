@@ -1,3 +1,9 @@
+html {
+  overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
+}
 .navbar-text-black {
   height: 95px;
   margin-right: 90px;

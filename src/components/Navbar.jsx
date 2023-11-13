@@ -68,7 +68,9 @@ const CustomNavbar = () => {
         />
       </Navbar.Brand>
       <Nav>
-        <Nav.Link href="/">Inicio</Nav.Link>
+        <Nav.Link as={Link} to="/">
+          Inicio
+        </Nav.Link>
         <Nav.Link as={Link} to="/tienda">
           Todos
         </Nav.Link>

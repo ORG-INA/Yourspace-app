@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../styles.css";
-import ProductList from "./../components/ProductList";
+import ProductList from "./ProductList";
 
 const Home = () => {
   return (
