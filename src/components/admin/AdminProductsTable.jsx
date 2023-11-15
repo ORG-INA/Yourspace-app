@@ -7,7 +7,7 @@ import {
   updateProductInventory,
 } from "../../services/yourspace-api/productsService";
 import { getInventarioById } from "../../services/yourspace-api/inventoryService";
-import { Button, Modal, Table } from "react-bootstrap";
+import { Button, Modal, Spinner, Table } from "react-bootstrap";
 
 const filteringDataForm = (data) => {
   if (!data.hasOwnProperty("categorias")) {
@@ -109,8 +109,10 @@ function AdminProductsTable() {
           <tbody>
             {loading ? (
               <tr>
-                <td>
-                  <p>Cargando...</p>
+                <td colSpan={5} align="center">
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
                 </td>
               </tr>
             ) : (

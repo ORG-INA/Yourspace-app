@@ -17,6 +17,7 @@ export const MARCAS_API = BASE_PRODUCTS_API + "marcas/";
 export const CATEGORIAS_API = BASE_PRODUCTS_API + "categorias/";
 export const TEMPORADAS_EVENTO_API = BASE_PRODUCTS_API + "temporadas_evento/";
 export const PRODUCTOS_API = BASE_PRODUCTS_API + "productos/";
+export const FILTRAR_PRODUCTOS_API = BASE_PRODUCTS_API + "filtro/";
 export const NUEVO_PRODUCTO_INVENTARIO_API =
   BASE_PRODUCTS_API + "inventario/nuevo/"; //POST
 // Resulta en http://example.com/api/products/ + [endpoint]/

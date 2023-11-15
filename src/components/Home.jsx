@@ -1,12 +1,11 @@
 import React from "react";
-import { Container, Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../styles.css";
-import ProductList from "./ProductList";
 
 const Home = () => {
   return (
-    <Container className="home-container">
+    <>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         <div className="col">
           <Link to="/inicio" className="link-sin-subrayado">
@@ -74,11 +73,7 @@ const Home = () => {
         <br />
         <Button variant="primary">Ver Temporada Actual</Button>
       </div>
-
-      <section className="mt-5">
-        <ProductList />
-      </section>
-    </Container>
+    </>
   );
 };
 

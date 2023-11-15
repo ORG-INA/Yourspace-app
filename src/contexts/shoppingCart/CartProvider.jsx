@@ -7,14 +7,20 @@ import {
   REMOVE_FROM_CART,
 } from "./cartActions";
 
-// Crear el contexto
-const CartContext = createContext();
-
 // Definir el estado inicial del carro
 const initialState = {
   items: [],
   total: 0,
 };
+
+// Crear el contexto
+export const CartContext = createContext({
+  state: initialState,
+  addToCart: (item) => {},
+  removeFromCart: (id) => {},
+  increaseQuantity: (id) => {},
+  decreaseQuantity: (id) => {},
+});
 
 // Proveedor del contexto
 export const CartProvider = ({ children }) => {
@@ -41,7 +47,6 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         state,
-        dispatch,
         addToCart,
         removeFromCart,
         increaseQuantity,

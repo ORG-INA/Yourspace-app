@@ -1,9 +1,10 @@
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Button } from "react-bootstrap";
+import BuyCartButton from "./BuyCartButton";
 
 function ProductInfo({ product }) {
   return (
-    <div className="row position-relative overflow-auto">
+    <main className="row">
       <div className="col-md-6">
         <img
           src={
@@ -16,7 +17,10 @@ function ProductInfo({ product }) {
         />
       </div>
 
-      <div className="col-md-6 p-3 position-sticky top-0">
+      <div
+        className="col-md-6 p-3 position-sticky"
+        style={{ height: "calc(100vh - 56px)", top: "56px" }}
+      >
         <div>
           <h1>{product.nombre}</h1>
         </div>
@@ -52,12 +56,20 @@ function ProductInfo({ product }) {
             </div>
           </div>
 
-          <Button variant="success mt-3" type="submit">
-            Añadir al carro
-          </Button>
+          <div className="d-flex gap-3 my-3">
+            <Button variant="success" type="submit">
+              Añadir al carro
+            </Button>
+
+            <BuyCartButton text="Quiero este producto" />
+          </div>
+          <BuyCartButton
+            text="Proceder con el carro de compras"
+            variant="warning"
+          />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

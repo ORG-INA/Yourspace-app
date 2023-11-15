@@ -13,12 +13,12 @@ export const cartReducer = (state, action) => {
     case ADD_TO_CART:
       const newItem = action.payload;
       const existingItemIndex = state.items.findIndex(
-        (item) => item.id === newItem.id
+        (items) => items.id_producto === newItem.id_producto
       );
 
       if (existingItemIndex !== -1) {
         const updatedItems = [...state.items];
-        updatedItems[existingItemIndex].quantity += 1;
+        updatedItems[existingItemIndex].cantidad += 1;
 
         return {
           ...state,
@@ -28,7 +28,7 @@ export const cartReducer = (state, action) => {
       } else {
         return {
           ...state,
-          items: [...state.items, { ...newItem, quantity: 1 }],
+          items: [...state.items, { ...newItem, cantidad: 1 }],
           total: state.total + newItem.price,
         };
       }
@@ -36,18 +36,18 @@ export const cartReducer = (state, action) => {
     case REMOVE_FROM_CART:
       const itemIdToRemove = action.payload;
       const itemToRemove = state.items.find(
-        (item) => item.id === itemIdToRemove
+        (item) => item.id_producto === itemIdToRemove
       );
 
       if (itemToRemove) {
         const updatedItems = state.items.filter(
-          (item) => item.id !== itemIdToRemove
+          (item) => item.id_producto !== itemIdToRemove
         );
 
         return {
           ...state,
           items: updatedItems,
-          total: state.total - itemToRemove.price * itemToRemove.quantity,
+          total: state.total - itemToRemove.price * itemToRemove.cantidad,
         };
       } else {
         return state;
@@ -56,12 +56,14 @@ export const cartReducer = (state, action) => {
     case INCREASE_QUANTITY:
       const itemIdToIncrease = action.payload;
       const itemToIncrease = state.items.find(
-        (item) => item.id === itemIdToIncrease
+        (item) => item.id_producto === itemIdToIncrease
       );
 
       if (itemToIncrease) {
         const updatedItems = [...state.items];
-        updatedItems.find((item) => item.id === itemIdToIncrease).quantity += 1;
+        updatedItems.find(
+          (item) => item.id_producto === itemIdToIncrease
+        ).cantidad += 1;
 
         return {
           ...state,
@@ -75,12 +77,14 @@ export const cartReducer = (state, action) => {
     case DECREASE_QUANTITY:
       const itemIdToDecrease = action.payload;
       const itemToDecrease = state.items.find(
-        (item) => item.id === itemIdToDecrease
+        (item) => item.id_producto === itemIdToDecrease
       );
 
-      if (itemToDecrease && itemToDecrease.quantity > 1) {
+      if (itemToDecrease && itemToDecrease.cantidad > 1) {
         const updatedItems = [...state.items];
-        updatedItems.find((item) => item.id === itemIdToDecrease).quantity -= 1;
+        updatedItems.find(
+          (item) => item.id_producto === itemIdToDecrease
+        ).cantidad -= 1;
 
         return {
           ...state,

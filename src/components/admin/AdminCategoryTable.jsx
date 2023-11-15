@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useCategoryService from "../../customHooks/useCategoryService";
-import { Form, Pagination, Table } from "react-bootstrap";
+import { Form, Pagination, Spinner, Table } from "react-bootstrap";
 import usePagination from "../../customHooks/usePagination";
 
 function AdminCategoryTable() {
@@ -107,24 +107,29 @@ function AdminCategoryTable() {
           </tr>
 
           {/* FILAS DE CATEGORIAS */}
-          {categories.length > 0
-            ? currentPageData.map((category) => (
-                <tr key={category.id_categoria}>
-                  <td>{category.nombre_categoria}</td>
-                  <td scope="row">
-                    {getCategoriaNameById(category.id_categoria_padre)}
-                  </td>
-                  <td>
-                    <a
-                      href="#"
-                      onClick={onDeleteCategory(category.id_categoria)}
-                    >
-                      Eliminar
-                    </a>
-                  </td>
-                </tr>
-              ))
-            : null}
+          {categories.length > 0 ? (
+            currentPageData.map((category) => (
+              <tr key={category.id_categoria}>
+                <td>{category.nombre_categoria}</td>
+                <td scope="row">
+                  {getCategoriaNameById(category.id_categoria_padre)}
+                </td>
+                <td>
+                  <a href="#" onClick={onDeleteCategory(category.id_categoria)}>
+                    Eliminar
+                  </a>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3} align="center">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </td>
+            </tr>
+          )}
         </tbody>
       </Table>
       {currentPageData.length > 0 ? (

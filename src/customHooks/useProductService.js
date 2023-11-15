@@ -33,7 +33,7 @@ function useProductService(id = null) {
     };
 
     fetchData();
-  }, [isUpdate]);
+  }, [id, isUpdate]);
 
   const addProduct = async (productData) => {
     try {

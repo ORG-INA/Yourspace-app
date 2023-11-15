@@ -5,7 +5,7 @@ const PublicContainer = () => {
   return (
     <>
       <Navbar />
-      <div className="mt-16">
+      <div style={{ marginTop: "100px", minHeight: "100vh", width: "100%" }}>
         <Outlet />
       </div>
     </>

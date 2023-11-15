@@ -26,7 +26,7 @@ function RegisterForm() {
     if (response) {
       console.log("Usuario registrado correctamente");
       alert("Usuario registrado correctamente");
-      navigate("/login");
+      navigate("/");
     } else {
       console.log("Error al registrar el usuario");
       alert("Error al registrar el usuario");

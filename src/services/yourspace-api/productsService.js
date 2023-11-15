@@ -1,4 +1,8 @@
-import { NUEVO_PRODUCTO_INVENTARIO_API, PRODUCTOS_API } from "./endpoints";
+import {
+  FILTRAR_PRODUCTOS_API,
+  NUEVO_PRODUCTO_INVENTARIO_API,
+  PRODUCTOS_API,
+} from "./endpoints";
 import { fetchAndResolve, fetchWithCredentials } from "./utils";
 
 export const getProducts = () => {
@@ -7,6 +11,16 @@ export const getProducts = () => {
 
 export const getProductById = (id) => {
   return fetchAndResolve(PRODUCTOS_API + id);
+};
+
+export const getProductByFilter = ({
+  marca = "null",
+  categoria = "null",
+  temporada = "null",
+}) => {
+  return fetchAndResolve(
+    FILTRAR_PRODUCTOS_API + marca + "/" + categoria + "/" + temporada
+  );
 };
 
 export const createProduct = (productData) => {

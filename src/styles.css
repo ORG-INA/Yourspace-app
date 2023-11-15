@@ -1,9 +1,6 @@
 html {
   overflow-x: hidden;
 }
-body {
-  overflow-x: hidden;
-}
 
 #main-title {
   font-size: 55px;
@@ -39,6 +36,19 @@ body {
 .admin_container_grid main {
   grid-area: main;
 }
+
+.grid_aside_main {
+  display: grid;
+  grid-template:
+    "sidebar main" /
+    256px auto;
+}
+.grid_aside_main aside {
+  grid-area: sidebar;
+}
+.grid_aside_main main {
+  grid-area: main;
+}
 .sidebar_icon_size {
   width: 24px;
   height: 24px;
@@ -46,7 +56,20 @@ body {
 
 .product_list_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   /* grid-template-rows: repeat(auto-fill, minmax(256px, 464px)); */
   grid-gap: 1rem;
+}
+
+.relative-position-responsive-tabs {
+  position: relative;
+  transform: translateX(0);
+}
+
+@media (min-width: 991px) {
+  .relative-position-responsive-tabs {
+    position: static;
+    transform: translateX(calc(100vw - 324px));
+    width: 0;
+  }
 }
