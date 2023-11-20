@@ -1,10 +1,12 @@
 /* eslint-disable no-prototype-builtins */
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useBrandService from "../../customHooks/useBrandService";
 import useCategoryService from "../../customHooks/useCategoryService";
 import useProductService from "../../customHooks/useProductService";
 import useEventSeasonService from "../../customHooks/useEventSeasonService";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, Spinner } from "react-bootstrap";
+import FixedSpinner from "../FixedSpinner";
+import { updateProductInventory } from "../../services/yourspace-api/productsService";
 
 const filteringDataForm = (data) => {
   if (!data.hasOwnProperty("categorias")) {
@@ -20,19 +22,58 @@ const filteringDataForm = (data) => {
   return data;
 };
 
-function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
-  const { addProductDirectToInventory, reloadProducts } = useProductService();
+function ProductInventoryForm({ children, data = {} }) {
+  const { addProductDirectToInventory } = useProductService();
   const { brands, loading: loadingBrands } = useBrandService();
   const { categories, loading: loadingCategories } = useCategoryService();
   const { seasons, loading: loadingEvents } = useEventSeasonService();
   const imagePreviewRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    id_producto: "",
+    id_inventario: "",
+    nombre: "",
+    descripcion: "",
+    precio: "",
+    cantidad: "",
+    descuento: "",
+    marca: "",
+    imagen: "",
+    categorias: [],
+    temporadas_evento: [],
+  });
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    await addProductDirectToInventory(filteringDataForm(formData));
+    setLoading(true);
+    const formProductData = new FormData();
+    if (children) {formProductData.append("id_producto", formData.id_producto);}
+    if (children) {formProductData.append("id_inventario", formData.id_inventario);}
+    formProductData.append("nombre", formData.nombre);
+    formProductData.append("descripcion", formData.descripcion);
+    formProductData.append("precio", formData.precio);
+    formProductData.append("cantidad", formData.cantidad);
+    formProductData.append("descuento", formData.descuento);
+    formProductData.append("marca", formData.marca);
+    if (typeof formData.imagen !== "string")
+      formProductData.append("imagen", formData.imagen);
+    // Agregar categorías seleccionadas al FormData
+    formData.categorias.forEach((categoria) => {
+      formProductData.append("categorias", categoria);
+    });
+
+    // Agregar temporadas de eventos seleccionadas al FormData
+    formData.temporadas_evento.forEach((temporada) => {
+      formProductData.append("temporadas_evento", temporada);
+    });
+    console.log([...formProductData]);
+    if (children) {
+      await updateProductInventory(formProductData);
+    } else {
+      await addProductDirectToInventory(formProductData);
+    }
+    setLoading(false);
     alert("Producto agregado correctamente");
-    reloadProducts();
     e.target.reset();
   };
 
@@ -47,15 +88,36 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
       };
 
       reader.readAsDataURL(file);
+
+      setFormData((prevData) => ({ ...prevData, imagen: file }));
     } else {
       imagePreviewRef.current.innerHTML = "PREVIEW";
     }
   };
 
+  useEffect(() => {
+    if (children && data.nombre) {
+      console.log(data);
+      setFormData({
+        id_producto: data.id_producto,
+        id_inventario: data.id_inventario,
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        precio: data.precio,
+        cantidad: data.cantidad,
+        descuento: data.descuento,
+        marca: data.marca,
+        imagen: data.imagen,
+        categorias: data.categorias,
+        temporadas_evento: data.temporadas_evento,
+      });
+    }
+  }, [data, children]);
+
   return (
     <>
       <Form
-        onSubmit={children ? onExternalSubmitForm : onSubmitForm}
+        onSubmit={onSubmitForm}
         className="shadow p-4 text-white bg-dark"
         data-bs-theme="dark"
       >
@@ -73,7 +135,13 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
                 className=""
                 placeholder=" "
                 required
-                defaultValue={data.nombre ? data.nombre : ""}
+                defaultValue={data.nombre}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    nombre: e.target.value,
+                  }))
+                }
               />
             </Form.Group>
 
@@ -86,7 +154,13 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
                 rows="6"
                 placeholder=" "
                 required
-                defaultValue={data.descripcion ? data.descripcion : ""}
+                defaultValue={data.descripcion}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    descripcion: e.target.value,
+                  }))
+                }
               ></Form.Control>
             </Form.Group>
 
@@ -99,7 +173,13 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
                   id="precio"
                   step="10"
                   required
-                  defaultValue={data.precio ? data.precio : ""}
+                  defaultValue={data.precio}
+                  onChange={(e) =>
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      precio: +e.target.value,
+                    }))
+                  }
                 />
               </Form.Group>
 
@@ -110,7 +190,13 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
                   name="cantidad"
                   id="cantidad"
                   required
-                  defaultValue={data.cantidad ? data.cantidad : ""}
+                  defaultValue={data.cantidad}
+                  onChange={(e) =>
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      cantidad: +e.target.value,
+                    }))
+                  }
                 />
               </Form.Group>
             </div>
@@ -124,14 +210,31 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
                   id="descuento"
                   placeholder=" "
                   required
-                  defaultValue={data.descuento ? data.descuento : ""}
+                  defaultValue={data.descuento}
+                  onChange={(e) =>
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      descuento: +e.target.value,
+                    }))
+                  }
                 />
               </Form.Group>
               <Form.Group className="col-6">
                 <Form.Label htmlFor="floating_first_name">Marca</Form.Label>
-                <Form.Select name="marca" id="marca">
+                <Form.Select
+                  name="marca"
+                  id="marca"
+                  value={formData.marca ?? data.marca}
+                  onChange={(e) =>
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      marca: +e.target.value,
+                    }))
+                  }
+                >
+                  <option value="0">Selecciona una marca</option>
                   {loadingBrands ? (
-                    <option defaultValue="" className="dark.text-white-900">
+                    <option value="0" className="dark.text-white-900">
                       Cargando...
                     </option>
                   ) : (
@@ -139,7 +242,7 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
                       <option
                         key={brand.id_marca}
                         value={brand.id_marca}
-                        selected={data.marca === brand.id_marca}
+                        // selected={data.marca == brand.id_marca}
                       >
                         {brand.nombre_marca}
                       </option>
@@ -185,55 +288,77 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
         <div className="row shadow-sm px-1 py-3 my-3 gap-3">
           <Form.Group>
             <Form.Label htmlFor="categorias">Categorías</Form.Label>
-            <Form.Select type="text" name="categorias" id="categorias" multiple>
+            <div>
               {loadingCategories ? (
-                <option defaultValue="">Cargando...</option>
+                <p>Cargando...</p>
               ) : (
                 categories.map((category) => (
-                  <option
+                  <Form.Check
+                    name="categoria"
                     key={category.id_categoria}
-                    value={category.id_categoria}
-                    selected={
+                    type="checkbox"
+                    label={category.nombre_categoria}
+                    onChange={(e) => {
+                      const isChecked = e.target.checked;
+                      setFormData((prevData) => ({
+                        ...prevData,
+                        categorias: isChecked
+                          ? [...prevData.categorias, category.id_categoria]
+                          : prevData.categorias.filter(
+                              (id) => id !== category.id_categoria
+                            ),
+                      }));
+                    }}
+                    defaultChecked={
                       data.categorias
                         ? data.categorias.includes(category.id_categoria)
-                        : ""
+                        : undefined
                     }
-                  >
-                    {category.nombre_categoria}
-                  </option>
+                  />
                 ))
               )}
-            </Form.Select>
+            </div>
           </Form.Group>
           <Form.Group>
-            <Form.Label htmlFor="temporadas_evento">Evento</Form.Label>
-            <Form.Select
-              type="text"
-              name="temporadas_evento"
-              id="temporadas_evento"
-              placeholder=" "
-              multiple
-            >
-              {loadingEvents ? (
-                <option>No hay eventos</option>
-              ) : seasons.length > 0 ? (
-                seasons.map((event) => (
-                  <option
-                    key={event.id}
-                    value={event.id}
-                    selected={
-                      data.temporadas
-                        ? data.temporadas_evento.includes(event.id)
-                        : ""
-                    }
-                  >
-                    {event.nombre}
-                  </option>
-                ))
-              ) : (
-                <option>No hay eventos</option>
-              )}
-            </Form.Select>
+            <Form.Label htmlFor="temporadas_evento">Eventos</Form.Label>
+
+            {loadingEvents ? (
+              <option value={null} defaultValue>
+                No hay eventos
+              </option>
+            ) : seasons.length > 0 ? (
+              seasons.map((event) => (
+                <Form.Check
+                  name="temporadas_evento"
+                  key={event.id_temporada_evento}
+                  type="checkbox"
+                  label={event.nombre}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      temporadas_evento: isChecked
+                        ? [
+                            ...prevData.temporadas_evento,
+                            event.id_temporada_evento,
+                          ]
+                        : prevData.temporadas_evento.filter(
+                            (id) => id !== event.id_temporada_evento
+                          ),
+                    }));
+                  }}
+                  defaultChecked={
+                    data.temporadas_evento
+                      ? data.temporadas_evento.includes(
+                          event.id_temporada_evento
+                        )
+                      : undefined
+                  }
+                />
+              ))
+            ) : (
+              <option>No hay eventos</option>
+            )}
           </Form.Group>
         </div>
 
@@ -245,6 +370,7 @@ function ProductInventoryForm({ children, data = {}, onExternalSubmitForm }) {
           </Button>
         )}
       </Form>
+      <FixedSpinner color="white" active={loading} />
     </>
   );
 }

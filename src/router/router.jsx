@@ -19,6 +19,8 @@ import ManageCategories from "../pages/admin-pages/ManageCategories";
 import Logout from "../pages/public-pages/Logout";
 import TiendaPage from "../pages/public-pages/TiendaPage";
 import CategoryPage from "../pages/public-pages/CategoryPage";
+import ManageSeasonAndEvents from "../pages/admin-pages/ManageSeasonAndEvents";
+import ManageBrands from "../pages/admin-pages/ManageBrands";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,14 @@ const router = createBrowserRouter([
       {
         path: "categories",
         element: <ManageCategories />,
+      },
+      {
+        path: "brands",
+        element: <ManageBrands />,
+      },
+      {
+        path: "events",
+        element: <ManageSeasonAndEvents />,
       },
     ],
   },

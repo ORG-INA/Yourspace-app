@@ -8,12 +8,13 @@ const Home = () => {
     <>
       <div className="row row-cols-1 row-cols-md-3 g-4">
         <div className="col">
-          <Link to="/inicio" className="link-sin-subrayado">
-            <div className="card h-100">
+          <Link to="/tienda/mujer" className="link-sin-subrayado">
+            <div className="card h-100 shadow">
               <img
-                src="yourspace-login.jpg"
-                className="card-img-top"
+                src="/categoria-mujer.png"
+                className="card-img-top object-fit-cover"
                 alt="Mujer"
+                height={400}
               />
               <div className="card-body text-center">
                 <h5 className="card-title">Mujer</h5>
@@ -25,12 +26,13 @@ const Home = () => {
           </Link>
         </div>
         <div className="col">
-          <Link to="/" className="link-sin-subrayado">
-            <div className="card h-100">
+          <Link to="/tienda/hombre" className="link-sin-subrayado">
+            <div className="card h-100 shadow">
               <img
-                src="yourspace-login.jpg"
-                className="card-img-top"
+                src="/categoria-hombre.png"
+                className="card-img-top object-fit-cover"
                 alt="Hombre"
+                height={400}
               />
               <div className="card-body text-center">
                 <h5 className="card-title">Hombre</h5>
@@ -42,12 +44,13 @@ const Home = () => {
           </Link>
         </div>
         <div className="col">
-          <Link to="/" className="link-sin-subrayado">
-            <div className="card h-100">
+          <Link to="/tienda/accesorios" className="link-sin-subrayado">
+            <div className="card h-100 shadow">
               <img
-                src="yourspace-login.jpg"
-                className="card-img-top"
+                src="/categoria-accesorios.png"
+                className="card-img-top object-fit-cover"
                 alt="Accesorios"
+                height={400}
               />
               <div className="card-body text-center">
                 <h5 className="card-title">Accesorios</h5>
@@ -59,7 +62,7 @@ const Home = () => {
           </Link>
         </div>
       </div>
-      <div className="text-center mt-4">
+      <div className="text-center mt-5 mb-5 py-5">
         <h1 id="main-title">
           <p>Bienvenido a</p>
           <p>Tu Espacio.</p>
@@ -70,8 +73,7 @@ const Home = () => {
         </p>
         <p className="text-style">¡Aprovecha las oportunidades!</p>
         <br />
-        <br />
-        <Button variant="primary">Ver Temporada Actual</Button>
+        <Button size="lg" variant="primary">Ver Temporada Actual</Button>
       </div>
     </>
   );

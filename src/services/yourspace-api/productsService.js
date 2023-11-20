@@ -13,7 +13,7 @@ export const getProductById = (id) => {
   return fetchAndResolve(PRODUCTOS_API + id);
 };
 
-export const getProductByFilter = ({
+export const getProductsByFilter = ({
   marca = "null",
   categoria = "null",
   temporada = "null",
@@ -22,7 +22,21 @@ export const getProductByFilter = ({
     FILTRAR_PRODUCTOS_API + marca + "/" + categoria + "/" + temporada
   );
 };
-
+export const getProductsByMarca = (marca) => {
+  return fetchAndResolve(
+    FILTRAR_PRODUCTOS_API + marca + "/null/null"
+  );
+};
+export const getProductsByCategoria = (categoria) => {
+  return fetchAndResolve(
+    FILTRAR_PRODUCTOS_API + "null" + "/" + categoria + "/" + "null"
+  );
+};
+export const getProductsByTemporada = (temporada) => {
+  return fetchAndResolve(
+    FILTRAR_PRODUCTOS_API + "null" + "/" + "null" + "/" + temporada
+  );
+};
 export const createProduct = (productData) => {
   return fetchWithCredentials(PRODUCTOS_API, {
     method: "POST",

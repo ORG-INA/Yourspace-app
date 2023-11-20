@@ -56,7 +56,7 @@ html {
 
 .product_list_grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   /* grid-template-rows: repeat(auto-fill, minmax(256px, 464px)); */
   grid-gap: 1rem;
 }

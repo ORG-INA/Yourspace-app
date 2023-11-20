@@ -16,6 +16,8 @@ const opciones = [
     elementos: [
       { key: "Gestionar productos", path: "/admin-dashboard/products" },
       { key: "Gestionar categorias", path: "/admin-dashboard/categories" },
+      { key: "Gestionar marcas", path: "/admin-dashboard/brands" },
+      { key: "Gestionar eventos", path: "/admin-dashboard/events" },
     ],
   },
   {
@@ -33,7 +35,7 @@ const opciones = [
     icon: <ChartBarIcon className="sidebar_icon_size me-2" />,
     text: "Informes",
     elementos: [
-      { key: "Temporadas / Eventos", path: "/admin-dashboard/reports" },
+      { key: "Temporadas / Eventos", path: "/admin-dashboard/events" },
       { key: "Descuentos", path: "/admin-dashboard/reports" },
     ],
   },

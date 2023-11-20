@@ -41,7 +41,6 @@ const CustomNavbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      console.log(scrollY);
       const isScrolled = scrollY >= 0 && scrollY <= 20;
       setNavbarHeight(calculateHeight());
       setScrolled(isScrolled);
@@ -141,9 +140,9 @@ const CustomNavbar = () => {
           <Nav.Link as={Link} to="/tienda">
             Todos
           </Nav.Link>
-          <Nav.Link href="#">Mujer</Nav.Link>
-          <Nav.Link href="#">Hombre</Nav.Link>
-          <Nav.Link href="#">Accesorios</Nav.Link>
+          <Nav.Link as={Link} to='/tienda/mujer'>Mujer</Nav.Link>
+          <Nav.Link as={Link} to='/tienda/hombre'>Hombre</Nav.Link>
+          <Nav.Link as={Link} to='/tienda/accesoiores'>Accesorios</Nav.Link>
           <Nav.Link href="#">Contacto</Nav.Link>
         </Nav>
         <Nav>
