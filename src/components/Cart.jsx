@@ -36,10 +36,7 @@ function Cart({ show = false, handleClose }) {
         className="overflow-hidden mb-3"
         style={{ overflow: "none" }}
       >
-        <BuyCartButton
-          text="Hacer la compra"
-          message={wspMessageCart(state.items)}
-        />
+        <BuyCartButton text="Hacer la compra" message={wspMessageCart(state)} />
       </Offcanvas.Body>
     </Offcanvas>
   );
