@@ -12,11 +12,14 @@ function AdminCategoryTable() {
     id_categoria_padre: null,
   });
 
-  const { currentPage, totalPages, currentPageData, paginate } = usePagination(
-    categories,
-    5,
-    "nombre"
-  );
+  const {
+    currentPage,
+    totalPages,
+    currentPageData,
+    paginate,
+    onPrevPage,
+    onNextPage,
+  } = usePagination(categories, 5, "nombre");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -40,14 +43,6 @@ function AdminCategoryTable() {
       : null;
     if (categoria) return categoria.nombre_categoria;
     else return "N/A";
-  };
-
-  const onPrevPage = () => {
-    paginate(currentPage - 1);
-  };
-
-  const onNextPage = () => {
-    paginate(currentPage + 1);
   };
 
   return (

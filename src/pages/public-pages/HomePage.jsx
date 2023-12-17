@@ -3,18 +3,17 @@ import Footer from "../../components/Footer";
 import PromoSection from "../../components/Home";
 import ProductList from "../../components/ProductList";
 import useProductService from "../../customHooks/useProductService";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useProductosContext } from "../../contexts/products/useProductsContext";
+import { getProducts } from "../../services/yourspace-api/productsService";
 
 export default function HomePage() {
-  const { products } = useProductService();
-  const [cachedProducts, setCachedProducts] = useState([]);
+  const { state, cargarDesdeDB } = useProductosContext();
 
   useEffect(() => {
-    // Verificar si ya se han cargado los productos
-    if (cachedProducts.length === 0 && products.length > 0) {
-      setCachedProducts(products);
-    }
-  }, [cachedProducts, products]);
+    cargarDesdeDB(getProducts);
+  }, []);
+
   return (
     <>
       <Container className="home-container">
@@ -22,7 +21,7 @@ export default function HomePage() {
         <section className="mt-5">
           <ProductList
             title="Productos destacados"
-            products={cachedProducts}
+            products={state.productos ?? []}
             placehholderQuantity={5}
           />
         </section>

@@ -46,12 +46,22 @@ const usePagination = (data, itemsPerPage, initialFilterKey) => {
     setCurrentPageData(filteredData.slice(indexOfFirstItem, indexOfLastItem));
   }, [currentPage, filteredData, itemsPerPage]);
 
+  const onPrevPage = () => {
+    paginate(currentPage - 1);
+  };
+
+  const onNextPage = () => {
+    paginate(currentPage + 1);
+  };
+
   return {
     currentPage,
     totalPages,
     paginate,
     currentPageData,
     setFilter,
+    onPrevPage,
+    onNextPage,
   };
 };
 

@@ -12,7 +12,6 @@ import { updateInventario } from "../services/yourspace-api/inventoryService";
 function useProductService(id = null) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,24 +32,23 @@ function useProductService(id = null) {
     };
 
     fetchData();
-  }, [id, isUpdate]);
+  }, [id]);
 
-  const addProduct = async (productData) => {
+  const addProduct = async (productData, nodb=false) => {
     try {
+      if (nodb) return setProducts((prev) => [...prev, productData]);
       const data = await createProduct(productData);
+      setProducts((prev) => [...prev, data]);
       return data;
     } catch (error) {
       console.error("Error creating product:", error);
     }
   };
 
-  const reloadProducts = () => {
-    setIsUpdate(!isUpdate);
-  };
-
   const editProduct = async (productData) => {
     try {
       const data = await updateProduct(productData);
+      setProducts((prev) => prev.map((product) => product.id === productData.id ? productData : product));
       return data;
     } catch (error) {
       console.error("Error updating product:", error);
@@ -60,6 +58,7 @@ function useProductService(id = null) {
   const removeProduct = async (productId) => {
     try {
       const data = await deleteProduct(productId);
+      setProducts((prev) => prev.filter((product) => product.id !== productId));
       return data;
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -69,6 +68,7 @@ function useProductService(id = null) {
   const addProductDirectToInventory = async (productData) => {
     try {
       const data = await createProductInventory(productData);
+      setProducts(prev=>[...prev, data])
       return data;
     } catch (error) {
       console.error("Error creating product:", error);
@@ -82,7 +82,6 @@ function useProductService(id = null) {
         id_inventario: productData.id_inventario,
         cantidad_disponible: productData.cantidad,
       });
-      reloadProducts();
       alert("Producto actualizado correctamente");
     } catch (error) {
       console.error("Error creating product:", error);
@@ -93,7 +92,6 @@ function useProductService(id = null) {
     products,
     loading,
     addProduct,
-    reloadProducts,
     editProduct,
     removeProduct,
     addProductDirectToInventory,

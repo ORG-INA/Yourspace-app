@@ -27,6 +27,7 @@ export const productoMockup = {
   precio: 19.99, // Reemplaza con el precio deseado
   descuento: 5.0, // Reemplaza con el descuento deseado o elimina si no hay descuento
   marca: marcaMockup, // Objeto JSON de la marca (como el primer ejemplo)
+  imagen: "url", // Reemplaza con la URL de la imagen deseada
   categorias: [categoriaMockup], // Array de objetos JSON de categorías
   temporadas_evento: [temporadaEventoMockup], // Array de objetos JSON de temporadas de eventos
   update_at: "2023-10-16T12:34:56Z", // Reemplaza con la fecha de actualización deseada

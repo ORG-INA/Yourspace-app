@@ -6,7 +6,11 @@ import useProductService from "../../customHooks/useProductService";
 import useEventSeasonService from "../../customHooks/useEventSeasonService";
 import { Button, Card, Form, Spinner } from "react-bootstrap";
 import FixedSpinner from "../FixedSpinner";
-import { updateProductInventory } from "../../services/yourspace-api/productsService";
+import {
+  createProductInventory,
+  updateProductInventory,
+} from "../../services/yourspace-api/productsService";
+import { useProductosContext } from "../../contexts/products/useProductsContext";
 
 const filteringDataForm = (data) => {
   if (!data.hasOwnProperty("categorias")) {
@@ -23,7 +27,7 @@ const filteringDataForm = (data) => {
 };
 
 function ProductInventoryForm({ children, data = {} }) {
-  const { addProductDirectToInventory } = useProductService();
+  const { agregarProducto } = useProductosContext();
   const { brands, loading: loadingBrands } = useBrandService();
   const { categories, loading: loadingCategories } = useCategoryService();
   const { seasons, loading: loadingEvents } = useEventSeasonService();
@@ -47,8 +51,12 @@ function ProductInventoryForm({ children, data = {} }) {
     e.preventDefault();
     setLoading(true);
     const formProductData = new FormData();
-    if (children) {formProductData.append("id_producto", formData.id_producto);}
-    if (children) {formProductData.append("id_inventario", formData.id_inventario);}
+    if (children) {
+      formProductData.append("id_producto", formData.id_producto);
+    }
+    if (children) {
+      formProductData.append("id_inventario", formData.id_inventario);
+    }
     formProductData.append("nombre", formData.nombre);
     formProductData.append("descripcion", formData.descripcion);
     formProductData.append("precio", formData.precio);
@@ -70,10 +78,11 @@ function ProductInventoryForm({ children, data = {} }) {
     if (children) {
       await updateProductInventory(formProductData);
     } else {
-      await addProductDirectToInventory(formProductData);
+      await createProductInventory(formProductData);
     }
     setLoading(false);
     alert("Producto agregado correctamente");
+    agregarProducto(formData);
     e.target.reset();
   };
 

@@ -19,7 +19,7 @@ function ProductCard({ product }) {
         className="object-fit-contain"
         height={256}
       />
-      <Card.Body className="">
+      <Card.Body className="d-flex flex-column justify-content-between">
         <Card.Title className="text-sm text-gray-700">
           <Card.Link
             as={Link}
@@ -29,10 +29,29 @@ function ProductCard({ product }) {
             {product.nombre}
           </Card.Link>
         </Card.Title>
-        <Card.Text className="mt-1 d-flex justify-content-between">
-          <span>Exclusivo</span>
-          <span>$ {product.precio}</span>
+        <Card.Text>
+          {product.descuento > 0.99 ? (
+            <>
+              <Card.Text className="mt-1 d-flex justify-content-between p-0 m-0">
+                <span>Antes</span>
+                <span className="text-decoration-line-through">$ {Math.floor(product.precio)}</span>
+              </Card.Text>
+              <Card.Text className="d-flex justify-content-between p-0 m-0">
+                <span>Ahora</span>
+                <span>$ {Math.floor(product.precio - +product.precio*+(product.descuento/100))}</span>
+              </Card.Text>
+            </>
+          ) :
+           (
+            <Card.Text className="d-flex justify-content-between p-0 m-0">
+              <span>Ahora</span>
+              <span>$ {Math.floor(product.precio)}</span>
+            </Card.Text>
+           )
+          }
+          
         </Card.Text>
+        
       </Card.Body>
       <Card.Footer className="d-flex justify-content-between">
         <Button variant="success" size="sm" onClick={() => addToCart(product)}>

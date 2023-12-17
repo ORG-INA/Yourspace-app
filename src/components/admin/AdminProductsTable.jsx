@@ -2,29 +2,35 @@
 import { useEffect, useState } from "react";
 import useProductService from "../../customHooks/useProductService";
 import ProductInventoryForm from "./ProductInventoryForm";
-import { getProductById } from "../../services/yourspace-api/productsService";
+import {
+  deleteProduct,
+  getProductById,
+  getProducts,
+} from "../../services/yourspace-api/productsService";
 import { getInventarioById } from "../../services/yourspace-api/inventoryService";
-import { Button, Modal, Spinner, Table } from "react-bootstrap";
+import { Button, Modal, Pagination, Spinner, Table } from "react-bootstrap";
+import usePagination from "../../customHooks/usePagination";
+import { useProductosContext } from "../../contexts/products/useProductsContext";
 
 function AdminProductsTable() {
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
-
+  const { state, cargarDesdeDB, eliminarProducto } = useProductosContext();
   const {
-    products: allproducts,
-    loading,
-    removeProduct,
-    reloadProducts,
-  } = useProductService();
+    currentPage,
+    totalPages,
+    currentPageData,
+    paginate,
+    onNextPage,
+    onPrevPage,
+  } = usePagination(state.productos, 5, "nombre");
 
-  const onModalOpen = (id) => async () => {
+  const onModalOpen = (producto) => async () => {
     setShowModal(true);
-    const producto = await getProductById(id);
-    const inventario = await getInventarioById(id);
-
+    const inventario = await getInventarioById(producto.id_producto);
+    console.log(inventario);
     setSelectedProduct({
       ...producto,
-      id_inventario: inventario.id_inventario,
       cantidad: inventario.cantidad_disponible,
     });
   };
@@ -34,13 +40,27 @@ function AdminProductsTable() {
     setShowModal(false);
   };
 
-  const onDeleteProduct = (ev) => {
+  const onDeleteProduct = async (ev) => {
     ev.preventDefault();
-    removeProduct(selectedProduct.id_producto);
+    if (
+      confirm(
+        '¿Está seguro que desea eliminar el producto "' +
+          selectedProduct.nombre +
+          '"?'
+      )
+    ) {
+      await deleteProduct(selectedProduct.id_producto);
+      eliminarProducto(selectedProduct.id_producto);
+    } else {
+      return;
+    }
     setSelectedProduct({});
-    reloadProducts();
     setShowModal(false);
   };
+
+  useEffect(() => {
+    cargarDesdeDB(getProducts);
+  }, []);
 
   return (
     <>
@@ -67,7 +87,7 @@ function AdminProductsTable() {
             </tr>
           </thead>
           <tbody>
-            {loading ? (
+            {state.isLoading ? (
               <tr>
                 <td colSpan={5} align="center">
                   <Spinner animation="border" role="status">
@@ -76,7 +96,7 @@ function AdminProductsTable() {
                 </td>
               </tr>
             ) : (
-              allproducts.map((product) => (
+              currentPageData.map((product) => (
                 <tr key={product.id_producto} className="">
                   <td className="">{/* Checkbox y etiqueta */}</td>
                   <td scope="row" className="">
@@ -85,11 +105,7 @@ function AdminProductsTable() {
                   <td className="">$ {product.precio}</td>
                   <td className="">{product.descuento} %</td>
                   <td className="">
-                    <a
-                      href="#"
-                      className=""
-                      onClick={onModalOpen(product.id_producto)}
-                    >
+                    <a href="#" className="" onClick={onModalOpen(product)}>
                       Editar
                     </a>
                   </td>
@@ -98,6 +114,42 @@ function AdminProductsTable() {
             )}
           </tbody>
         </Table>
+        {currentPageData.length > 0 ? (
+          <Pagination className="justify-content-center">
+            <Pagination.First onClick={() => paginate(1)} />
+            <Pagination.Prev
+              onClick={onPrevPage}
+              disabled={currentPage == 1 ? true : false}
+            />
+            {Array(totalPages())
+              .fill(0)
+              .map((_, index) =>
+                currentPage == index + 1 ? (
+                  <Pagination.Item
+                    key={index}
+                    onClick={() => paginate(index + 1)}
+                    active
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                ) : (
+                  <Pagination.Item
+                    key={index}
+                    onClick={() => paginate(index + 1)}
+                  >
+                    {index + 1}
+                  </Pagination.Item>
+                )
+              )}
+            {/* <Pagination.Item active>{currentPage}</Pagination.Item> */}
+
+            <Pagination.Next
+              onClick={onNextPage}
+              disabled={totalPages() == currentPage ? true : false}
+            />
+            <Pagination.Last onClick={() => paginate(totalPages())} />
+          </Pagination>
+        ) : null}
       </div>
 
       <Modal
