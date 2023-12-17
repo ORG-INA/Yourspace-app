@@ -1,9 +1,17 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { WHATSAPP_YS } from "../services/yourspace-api/endpoints";
 
-function WhastappButton({ text, variant = "success" }) {
+function WhastappButton({ text, variant = "success", message }) {
+  const encodedMessage = encodeURIComponent(message);
   return (
-    <Button variant={variant}>
+    <Button
+      variant={variant}
+      as={Link}
+      to={WHATSAPP_YS + `?text=${encodedMessage}`}
+      target="_blank"
+    >
       <span className="me-2">{text}</span>
       <svg
         viewBox="0 0 32 32"

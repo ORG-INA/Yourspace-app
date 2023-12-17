@@ -39,3 +39,6 @@ export const REGISTER_API = BASE_USERS_API + "register/";
 export const TOKEN_REFRESH_API = BASE_USERS_API + "token/refresh/";
 export const TOKEN_VERIFY_API = BASE_USERS_API + "token/verify/";
 // Resulta en http://example.com/api/users/ + [endpoint]/
+
+export const WHATSAPP_YS_DEFAULT_MESSAGE = "https://wa.me/message/HPFEVFTDQ7FHK1";
+export const WHATSAPP_YS = "https://wa.me/56996658276/";

@@ -3,6 +3,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { useCartContext } from "../contexts/shoppingCart/useCartContext";
 import CartItem from "./CartItem";
 import BuyCartButton from "./BuyCartButton";
+import { wspMessageCart } from "../services/wsp-texts-messages/cart-text";
 
 function Cart({ show = false, handleClose }) {
   const { state } = useCartContext();
@@ -35,7 +36,10 @@ function Cart({ show = false, handleClose }) {
         className="overflow-hidden mb-3"
         style={{ overflow: "none" }}
       >
-        <BuyCartButton text="Hacer la compra" />
+        <BuyCartButton
+          text="Hacer la compra"
+          message={wspMessageCart(state.items)}
+        />
       </Offcanvas.Body>
     </Offcanvas>
   );

@@ -1,6 +1,7 @@
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Button } from "react-bootstrap";
 import BuyCartButton from "./BuyCartButton";
+import { wspMessageProduct } from "../services/wsp-texts-messages/product-text";
 
 function ProductInfo({ product }) {
   return (
@@ -61,7 +62,10 @@ function ProductInfo({ product }) {
               Añadir al carro
             </Button>
 
-            <BuyCartButton text="Quiero este producto" />
+            <BuyCartButton
+              text="Quiero este producto"
+              message={wspMessageProduct(product)}
+            />
           </div>
           <BuyCartButton
             text="Proceder con el carro de compras"
