@@ -23,13 +23,13 @@ export const cartReducer = (state, action) => {
         return {
           ...state,
           items: updatedItems,
-          total: state.total + newItem.price,
+          total: state.total + +newItem.precio,
         };
       } else {
         return {
           ...state,
           items: [...state.items, { ...newItem, cantidad: 1 }],
-          total: state.total + newItem.price,
+          total: state.total + +newItem.precio,
         };
       }
 
@@ -47,7 +47,7 @@ export const cartReducer = (state, action) => {
         return {
           ...state,
           items: updatedItems,
-          total: state.total - itemToRemove.price * itemToRemove.cantidad,
+          total: state.total - +itemToRemove.precio * +itemToRemove.cantidad,
         };
       } else {
         return state;
@@ -68,7 +68,7 @@ export const cartReducer = (state, action) => {
         return {
           ...state,
           items: updatedItems,
-          total: state.total + itemToIncrease.price,
+          total: state.total + +itemToIncrease.precio,
         };
       } else {
         return state;
@@ -89,7 +89,7 @@ export const cartReducer = (state, action) => {
         return {
           ...state,
           items: updatedItems,
-          total: state.total - itemToDecrease.price,
+          total: state.total - +itemToDecrease.precio,
         };
       } else {
         return state;
