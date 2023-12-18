@@ -165,7 +165,12 @@ function AdminProductsTable() {
         <Modal.Body data-bs-theme="dark" className="p-0">
           <ProductInventoryForm data={selectedProduct}>
             <Modal.Footer className="relative d-flex justify-content-between border-0">
-              <div className="d-flex gap-3">
+              <div
+                onClick={setTimeout(() => {
+                  onModalClose();
+                }, 5000)}
+                className="d-flex gap-3"
+              >
                 <Button type="submit" variant="warning">
                   Actualizar
                 </Button>
