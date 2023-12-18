@@ -45,6 +45,7 @@ export const ProductsProvider = ({ children }) => {
       }
       // Actualizar el estado con los productos obtenidos
       cargarProductos(productosDesdeBackend);
+      setIsFull(true);
     } catch (error) {
       console.error("Error al obtener productos desde el backend:", error);
     } finally {
