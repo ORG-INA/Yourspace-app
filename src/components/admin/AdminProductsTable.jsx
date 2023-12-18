@@ -31,6 +31,7 @@ function AdminProductsTable() {
     console.log(inventario);
     setSelectedProduct({
       ...producto,
+      id_inventario: inventario.id_inventario,
       cantidad: inventario.cantidad_disponible,
     });
   };
