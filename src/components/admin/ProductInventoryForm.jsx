@@ -81,7 +81,11 @@ function ProductInventoryForm({ children, data = {} }) {
       await createProductInventory(formProductData);
     }
     setLoading(false);
-    alert("Producto agregado correctamente");
+    alert(
+      children
+        ? "Producto actualizado correctamente."
+        : "Producto agregado correctamente"
+    );
     agregarProducto(formData);
     e.target.reset();
   };

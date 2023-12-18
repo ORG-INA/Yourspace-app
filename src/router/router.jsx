@@ -21,6 +21,7 @@ import TiendaPage from "../pages/public-pages/TiendaPage";
 import CategoryPage from "../pages/public-pages/CategoryPage";
 import ManageSeasonAndEvents from "../pages/admin-pages/ManageSeasonAndEvents";
 import ManageBrands from "../pages/admin-pages/ManageBrands";
+import PromosPage from "../pages/public-pages/PromosPage";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/tienda/:category",
         element: <CategoryPage />,
+      },
+      {
+        path: "/evento/:temporada",
+        element: <PromosPage />,
       },
     ],
   },

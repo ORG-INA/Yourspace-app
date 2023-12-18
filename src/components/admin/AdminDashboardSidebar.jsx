@@ -20,34 +20,34 @@ const opciones = [
       { key: "Gestionar eventos", path: "/admin-dashboard/events" },
     ],
   },
-  {
-    key: "usuarios",
-    icon: <UserIcon className="sidebar_icon_size me-2" />,
-    text: "Usuarios",
-    elementos: [
-      { key: "Gestionar", path: "/admin-dashboard/users" },
-      { key: "Eliminar", path: "/admin-dashboard/users" },
-      { key: "Notificar", path: "/admin-dashboard/users" },
-    ],
-  },
-  {
-    key: "promociones",
-    icon: <ChartBarIcon className="sidebar_icon_size me-2" />,
-    text: "Informes",
-    elementos: [
-      { key: "Temporadas / Eventos", path: "/admin-dashboard/events" },
-      { key: "Descuentos", path: "/admin-dashboard/reports" },
-    ],
-  },
-  {
-    key: "vista",
-    icon: <WindowIcon className="sidebar_icon_size me-2" />,
-    text: "Vistas",
-    elementos: [
-      { key: "Imágenes", path: "/admin-dashboard/views" },
-      { key: "Productos destacados", path: "/admin-dashboard/views" },
-    ],
-  },
+  // {
+  //   key: "usuarios",
+  //   icon: <UserIcon className="sidebar_icon_size me-2" />,
+  //   text: "Usuarios",
+  //   elementos: [
+  //     { key: "Gestionar", path: "/admin-dashboard/users" },
+  //     { key: "Eliminar", path: "/admin-dashboard/users" },
+  //     { key: "Notificar", path: "/admin-dashboard/users" },
+  //   ],
+  // },
+  // {
+  //   key: "promociones",
+  //   icon: <ChartBarIcon className="sidebar_icon_size me-2" />,
+  //   text: "Informes",
+  //   elementos: [
+  //     { key: "Temporadas / Eventos", path: "/admin-dashboard/events" },
+  //     { key: "Descuentos", path: "/admin-dashboard/reports" },
+  //   ],
+  // },
+  // {
+  //   key: "vista",
+  //   icon: <WindowIcon className="sidebar_icon_size me-2" />,
+  //   text: "Vistas",
+  //   elementos: [
+  //     { key: "Imágenes", path: "/admin-dashboard/views" },
+  //     { key: "Productos destacados", path: "/admin-dashboard/views" },
+  //   ],
+  // },
 ];
 
 function AdminDashboardSidebar() {

@@ -73,7 +73,9 @@ const Home = () => {
         </p>
         <p className="text-style">¡Aprovecha las oportunidades!</p>
         <br />
-        <Button size="lg" variant="primary">Ver Temporada Actual</Button>
+        <Button size="lg" variant="primary" as={Link} to={"/evento/ofertas"}>
+          Ver Temporada Actual
+        </Button>
       </div>
     </>
   );

@@ -1,4 +1,6 @@
-import React from 'react';
+import React from "react";
+import { WHATSAPP_YS_DEFAULT_MESSAGE } from "../services/yourspace-api/endpoints";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -7,21 +9,31 @@ const Footer = () => {
         <div className="row">
           {/* Sobre Nosotros */}
           <div className="col-md-3">
-            <h5 className="text-uppercase mb-4 font-weight-bold">Sobre Nosotros</h5>
+            <h5 className="text-uppercase mb-4 font-weight-bold">
+              Sobre Nosotros
+            </h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#" className="text-muted">Historia</a>
+                <a href="#" className="text-muted">
+                  Historia
+                </a>
               </li>
               {/* Agrega más elementos según necesites */}
             </ul>
           </div>
-          
+
           {/* Contacto */}
           <div className="col-md-3">
             <h5 className="text-uppercase mb-4 font-weight-bold">Contacto</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#" className="text-muted">Envíanos un mensaje</a>
+                <Link
+                  to={WHATSAPP_YS_DEFAULT_MESSAGE}
+                  className="text-muted"
+                  target="_blank"
+                >
+                  Envíanos un mensaje
+                </Link>
               </li>
               {/* Agrega más elementos según necesites */}
             </ul>
@@ -40,9 +52,12 @@ const Footer = () => {
             <h5 className="text-uppercase mb-4 font-weight-bold">Síguenos</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#" className="text-muted">
+                <Link
+                  to="https://www.instagram.com/tiendayourspace/"
+                  className="text-muted"
+                >
                   <i className="bi bi-instagram"></i> Instagram
-                </a>
+                </Link>
               </li>
               {/* Agrega más elementos según necesites */}
             </ul>
@@ -56,7 +71,7 @@ const Footer = () => {
             src="your_space.png" // Reemplaza con la ruta de tu logo
             alt="Logo"
             className="img-fluid"
-            style={{ maxWidth: '100px' }}
+            style={{ maxWidth: "100px" }}
           />
         </div>
       </div>
