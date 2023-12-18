@@ -7,20 +7,6 @@ const Footer = () => {
     <footer className="bg-light py-5">
       <div className="container">
         <div className="row">
-          {/* Sobre Nosotros */}
-          <div className="col-md-3">
-            <h5 className="text-uppercase mb-4 font-weight-bold">
-              Sobre Nosotros
-            </h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="#" className="text-muted">
-                  Historia
-                </a>
-              </li>
-              {/* Agrega más elementos según necesites */}
-            </ul>
-          </div>
 
           {/* Contacto */}
           <div className="col-md-3">
@@ -39,13 +25,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Menú */}
-          <div className="col-md-3">
-            <h5 className="text-uppercase mb-4 font-weight-bold">Menú</h5>
-            <ul className="list-unstyled">
-              {/* Agrega más elementos según necesites */}
-            </ul>
-          </div>
+       
 
           {/* Síguenos */}
           <div className="col-md-3">
