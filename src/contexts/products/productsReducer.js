@@ -1,13 +1,7 @@
 // productosReducer.js
-export const productosActions = {
-  CARGAR_PRODUCTOS: 'CARGAR_PRODUCTOS',
-  AGREGAR_PRODUCTO: 'AGREGAR_PRODUCTO',
-  ACTUALIZAR_PRODUCTO: 'ACTUALIZAR_PRODUCTO',
-  ELIMINAR_PRODUCTO: 'ELIMINAR_PRODUCTO',
-  IS_FULL: 'IS_FULL',
-  IS_LOADING: 'IS_LOADING',
-  // Agrega otras acciones según sea necesario
-};
+
+import { productosActions } from "./productsActions";
+
 
 export const productosReducer = (state, action) => {
   switch (action.type) {
@@ -18,7 +12,7 @@ export const productosReducer = (state, action) => {
       return { ...state, isFull: action.payload };
 
     case productosActions.IS_LOADING:
-      return { ...state, isFull: action.payload };  
+      return { ...state, isLoading: action.payload };  
 
     case productosActions.AGREGAR_PRODUCTO:
       return { ...state, productos: [...state.productos, action.payload] };

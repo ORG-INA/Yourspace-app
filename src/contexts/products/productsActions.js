@@ -1,0 +1,9 @@
+export const productosActions = {
+  CARGAR_PRODUCTOS: 'CARGAR_PRODUCTOS',
+  AGREGAR_PRODUCTO: 'AGREGAR_PRODUCTO',
+  ACTUALIZAR_PRODUCTO: 'ACTUALIZAR_PRODUCTO',
+  ELIMINAR_PRODUCTO: 'ELIMINAR_PRODUCTO',
+  IS_FULL: 'IS_FULL',
+  IS_LOADING: 'IS_LOADING',
+  // Agrega otras acciones según sea necesario
+};

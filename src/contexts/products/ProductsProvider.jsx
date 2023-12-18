@@ -19,6 +19,8 @@ export const ProductosContext = createContext({
 
 const initialState = {
   productos: [],
+  isFull: false,
+  isLoading: false,
 };
 
 export const ProductsProvider = ({ children }) => {
@@ -26,8 +28,10 @@ export const ProductsProvider = ({ children }) => {
 
   const cargarDesdeDB = async (getDBData) => {
     try {
-      if (state.isFull) return;
       setIsLoading(true);
+      if (state.isFull) {
+        return;
+      }
       // Realizar la llamada al backend
       let productosDesdeBackend = await getDBData();
 
@@ -40,9 +44,7 @@ export const ProductsProvider = ({ children }) => {
       }
       // Actualizar el estado con los productos obtenidos
       cargarProductos(productosDesdeBackend);
-      setIsFull(true);
     } catch (error) {
-      setIsFull(false);
       console.error("Error al obtener productos desde el backend:", error);
     } finally {
       setIsLoading(false);
