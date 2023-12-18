@@ -1,6 +1,7 @@
 // ProductosProvider.js
 import React, { createContext, useReducer } from "react";
-import { productosReducer, productosActions } from "./productsReducer";
+import { productosReducer } from "./productsReducer";
+import { productosActions } from "./productsActions";
 
 export const ProductosContext = createContext({
   state: {
