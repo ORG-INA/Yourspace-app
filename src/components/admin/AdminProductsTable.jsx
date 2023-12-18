@@ -99,7 +99,7 @@ function AdminProductsTable() {
             ) : (
               currentPageData.map((product) => (
                 <tr key={product.id_producto} className="">
-                  <td className="">{/* Checkbox y etiqueta */}</td>
+                  <td className="">{product.id_producto}</td>
                   <td scope="row" className="">
                     {product.nombre}
                   </td>
@@ -163,7 +163,10 @@ function AdminProductsTable() {
         data-bs-theme="dark"
       >
         <Modal.Body data-bs-theme="dark" className="p-0">
-          <ProductInventoryForm data={selectedProduct}>
+          <ProductInventoryForm
+            data={selectedProduct}
+            modalCallback={onModalClose}
+          >
             <Modal.Footer className="relative d-flex justify-content-between border-0">
               <div className="d-flex gap-3">
                 <Button type="submit" variant="warning">

@@ -26,7 +26,7 @@ const filteringDataForm = (data) => {
   return data;
 };
 
-function ProductInventoryForm({ children, data = {} }) {
+function ProductInventoryForm({ children, data = {}, modalCallback }) {
   const { agregarProducto } = useProductosContext();
   const { brands, loading: loadingBrands } = useBrandService();
   const { categories, loading: loadingCategories } = useCategoryService();
@@ -87,6 +87,7 @@ function ProductInventoryForm({ children, data = {} }) {
         : "Producto agregado correctamente"
     );
     agregarProducto(formData);
+    modalCallback();
     e.target.reset();
   };
 
