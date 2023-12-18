@@ -143,7 +143,7 @@ const CustomNavbar = () => {
           <Nav.Link as={Link} to='/tienda/mujer'>Mujer</Nav.Link>
           <Nav.Link as={Link} to='/tienda/hombre'>Hombre</Nav.Link>
           <Nav.Link as={Link} to='/tienda/accesorios'>Accesorios</Nav.Link>
-          <Nav.Link href="#">Contacto</Nav.Link>
+          <Nav.Link as={Link} to={WHATSAPP_YS_DEFAULT_MESSAGE}>Contacto</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link as={Link} to={state.user ? "/logout" : "/login"}>
