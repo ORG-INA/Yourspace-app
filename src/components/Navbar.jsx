@@ -142,7 +142,7 @@ const CustomNavbar = () => {
           </Nav.Link>
           <Nav.Link as={Link} to='/tienda/mujer'>Mujer</Nav.Link>
           <Nav.Link as={Link} to='/tienda/hombre'>Hombre</Nav.Link>
-          <Nav.Link as={Link} to='/tienda/accesoiores'>Accesorios</Nav.Link>
+          <Nav.Link as={Link} to='/tienda/accesorios'>Accesorios</Nav.Link>
           <Nav.Link href="#">Contacto</Nav.Link>
         </Nav>
         <Nav>
