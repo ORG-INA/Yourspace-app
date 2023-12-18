@@ -39,13 +39,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Menú */}
-          <div className="col-md-3">
-            <h5 className="text-uppercase mb-4 font-weight-bold">Menú</h5>
-            <ul className="list-unstyled">
-              {/* Agrega más elementos según necesites */}
-            </ul>
-          </div>
+       
 
           {/* Síguenos */}
           <div className="col-md-3">
